@@ -1,0 +1,34 @@
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+@layer components {
+  .display-title {
+    @apply text-4xl uppercase leading-[1.02] sm:text-5xl lg:text-[5.5rem];
+  }
+
+  .section-title {
+    @apply text-3xl uppercase leading-[1.04] sm:text-4xl lg:text-5xl;
+  }
+
+  .section-copy {
+    @apply max-w-2xl text-[15px] leading-7 sm:text-[16px];
+    color: rgb(242 242 234 / 0.78);
+  }
+
+  .mono-copy {
+    @apply font-mono text-[12px] uppercase tracking-[0.14em] text-dust;
+  }
+}
