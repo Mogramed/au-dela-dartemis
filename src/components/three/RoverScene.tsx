@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { clsx } from 'clsx'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { AdaptiveDpr } from '@react-three/drei'
@@ -6,36 +7,56 @@ import Hotspots from '@/components/three/Hotspots'
 import CameraRig from '@/components/three/CameraRig'
 import LunarEnvironment from '@/components/three/LunarEnvironment'
 import ModelFallback from '@/components/three/ModelFallback'
-import RoverModel from '@/components/three/RoverModel'
+import RoverModel, { ProxyModel, type ModelBounds } from '@/components/three/RoverModel'
 import ViewerErrorBoundary from '@/components/three/ViewerErrorBoundary'
 import type { HotspotId } from '@/data/hotspots'
 import { useIsMobile } from '@/hooks/useIsMobile'
-import type { ViewerMode } from '@/stores/viewerStore'
+import type { ViewerFocusMode, ViewerMode } from '@/stores/viewerStore'
 import { assetPaths } from '@/utils/assetPaths'
 import { supportsWebGL } from '@/utils/performance'
 
 type RoverSceneProps = {
+  allowInteraction?: boolean
+  cinematicActive: boolean
+  cinematicPaused: boolean
+  className?: string
+  focusMode: ViewerFocusMode
   mode: ViewerMode
   onSelectHotspot: (id: HotspotId) => void
   performanceMode: boolean
+  preferHighExterior?: boolean
+  presentationProgress?: number
   resetNonce: number
+  showInteractionHint?: boolean
   selectedHotspot: HotspotId
 }
 
 function RoverScene({
+  allowInteraction = true,
+  cinematicActive,
+  cinematicPaused,
+  className,
+  focusMode,
   mode,
   onSelectHotspot,
   performanceMode,
+  preferHighExterior = false,
+  presentationProgress,
   resetNonce,
+  showInteractionHint = true,
   selectedHotspot,
 }: RoverSceneProps) {
   const isMobile = useIsMobile()
-  const [modelAvailable, setModelAvailable] = useState(false)
+  const [modelBounds, setModelBounds] = useState<ModelBounds | null>(null)
+  const [modelReady, setModelReady] = useState(false)
   const [webglAvailable, setWebglAvailable] = useState(true)
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const effectiveFocusMode =
+    cinematicActive && focusMode === 'isolate' ? 'accent' : focusMode
   const useLiteScene = performanceMode || isMobile || mode === 'interior' || mode === 'chassis'
-  const useLowExteriorModel =
-    isMobile || (performanceMode && (mode === 'exterior' || mode === 'details' || mode === 'cinematic'))
+  const useHighExteriorModel =
+    !useLiteScene && (preferHighExterior || mode === 'cinematic' || mode === 'details')
+  const useLowExteriorModel = !useHighExteriorModel && mode !== 'interior' && mode !== 'chassis'
 
   const modelPath = useMemo(() => {
     if (mode === 'interior') {
@@ -46,22 +67,27 @@ function RoverScene({
       return assetPaths.models.chassis
     }
 
-    if (useLowExteriorModel) {
-      return assetPaths.models.low
-    }
-
-    return assetPaths.models.high
-  }, [mode, useLowExteriorModel])
+    return useHighExteriorModel ? assetPaths.models.high : assetPaths.models.low
+  }, [mode, useHighExteriorModel])
 
   const sceneHotspotsEnabled =
-    modelAvailable && !performanceMode && !isMobile && mode !== 'interior' && mode !== 'chassis'
+    modelReady &&
+    !useLowExteriorModel &&
+    !performanceMode &&
+    !isMobile &&
+    mode !== 'interior' &&
+    mode !== 'chassis'
   const activeModelLabel = useMemo(() => {
+    if (useHighExteriorModel) {
+      return 'GLB hero actif'
+    }
+
     if (performanceMode && !isMobile && mode !== 'interior' && mode !== 'chassis') {
       return 'GLB performance actif'
     }
 
     if (useLowExteriorModel) {
-      return 'GLB mobile actif'
+      return 'GLB optimise actif'
     }
 
     if (mode === 'interior') {
@@ -73,37 +99,22 @@ function RoverScene({
     }
 
     return 'GLB exterieur actif'
-  }, [isMobile, mode, performanceMode, useLowExteriorModel])
+  }, [isMobile, mode, performanceMode, useHighExteriorModel, useLowExteriorModel])
 
   useEffect(() => {
     setWebglAvailable(supportsWebGL())
   }, [])
 
   useEffect(() => {
-    let isMounted = true
-
-    const checkModel = async () => {
-      try {
-        const response = await fetch(modelPath, { method: 'HEAD' })
-        const contentType = response.headers.get('content-type') ?? ''
-        if (isMounted) {
-          setModelAvailable(response.ok && !contentType.includes('text/html'))
-        }
-      } catch {
-        if (isMounted) {
-          setModelAvailable(false)
-        }
-      }
-    }
-
-    void checkModel()
-
-    return () => {
-      isMounted = false
-    }
+    setModelReady(false)
+    setModelBounds(null)
   }, [modelPath])
 
   useEffect(() => {
+    if (!allowInteraction) {
+      return undefined
+    }
+
     const preventViewerWheelScroll = (event: WheelEvent) => {
       const element = containerRef.current
 
@@ -126,10 +137,42 @@ function RoverScene({
     return () => {
       window.removeEventListener('wheel', preventViewerWheelScroll, true)
     }
-  }, [])
+  }, [allowInteraction])
+
+  useEffect(() => {
+    const element = containerRef.current
+
+    if (!allowInteraction || !element || isMobile) {
+      return undefined
+    }
+
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+
+    const lockPageScroll = () => {
+      document.documentElement.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden'
+    }
+
+    const unlockPageScroll = () => {
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+    }
+
+    element.addEventListener('pointerenter', lockPageScroll)
+    element.addEventListener('pointerleave', unlockPageScroll)
+    window.addEventListener('blur', unlockPageScroll)
+
+    return () => {
+      unlockPageScroll()
+      element.removeEventListener('pointerenter', lockPageScroll)
+      element.removeEventListener('pointerleave', unlockPageScroll)
+      window.removeEventListener('blur', unlockPageScroll)
+    }
+  }, [allowInteraction, isMobile])
 
   if (!webglAvailable) {
-    return (
+      return (
       <ModelFallback
         description={
           webglAvailable
@@ -143,22 +186,15 @@ function RoverScene({
     )
   }
 
-  if (!modelAvailable) {
-    return (
-      <ModelFallback
-        description="Le viewer charge automatiquement le GLB des qu'il est disponible. En attendant, cette vue media garde une lecture propre du projet."
-        poster={assetPaths.hero.exterior}
-        title="Mode media"
-        videoUrl={assetPaths.videos.fallback}
-      />
-    )
-  }
+  const frameClassName = className
+    ? clsx('relative overflow-hidden rounded-sm border border-white/10 bg-space-soft', className)
+    : 'relative h-[420px] overflow-hidden rounded-sm border border-white/10 bg-space-soft sm:h-[520px] lg:h-[620px]'
 
   return (
     <ViewerErrorBoundary
       fallback={
         <ModelFallback
-          description="Le GLB existe bien, mais le chargement a echoue dans ce navigateur. Le viewer bascule vers une vue media."
+          description="Le navigateur n'a pas pu charger le GLB proprement. Le viewer bascule vers une vue archive plus stable."
           poster={assetPaths.hero.profile}
           title="Fallback media"
           videoUrl={assetPaths.videos.fallback}
@@ -168,17 +204,17 @@ function RoverScene({
     >
       <div
         ref={containerRef}
-        className="relative h-[420px] overflow-hidden rounded-sm border border-white/10 bg-space-soft sm:h-[520px] lg:h-[620px]"
-        data-lenis-prevent-wheel
-        style={{ overscrollBehavior: 'contain', touchAction: 'none' }}
+        className={frameClassName}
+        data-lenis-prevent-wheel={allowInteraction ? true : undefined}
+        style={{ overscrollBehavior: 'contain', touchAction: allowInteraction ? 'none' : 'pan-y' }}
       >
         <Canvas
-          camera={{ far: 40, fov: 34, near: 0.1, position: [4.8, 1.9, 4.5] }}
-          dpr={isMobile ? [0.8, 0.95] : performanceMode ? [0.85, 1] : [0.95, 1.25]}
+          camera={{ far: 40, fov: 31, near: 0.05, position: [4.6, 1.4, 3.9] }}
+          dpr={isMobile ? [0.74, 0.9] : useHighExteriorModel ? [0.9, 1.05] : [0.8, 1]}
           frameloop={mode === 'cinematic' ? 'always' : 'demand'}
           gl={{
             alpha: false,
-            antialias: !useLiteScene,
+            antialias: useHighExteriorModel,
             powerPreference: 'high-performance',
             preserveDrawingBuffer: false,
           }}
@@ -188,13 +224,22 @@ function RoverScene({
           <color args={['#050507']} attach="background" />
           <fog args={['#050507', 10, 22]} attach="fog" />
           <AdaptiveDpr pixelated={useLiteScene} />
-          <LunarEnvironment lite={useLiteScene} />
-          <group position={[0, 0.2, 0]}>
-            <Suspense fallback={<RoverModel modelAvailable={false} modelPath={modelPath} mode={mode} />}>
-              <RoverModel modelAvailable={modelAvailable} modelPath={modelPath} mode={mode} />
+          <LunarEnvironment animate={mode === 'cinematic' && !useLiteScene} lite={useLiteScene} />
+          <group position={[0, 0, 0]}>
+            <Suspense fallback={<ProxyModel mode={mode} />}>
+              <RoverModel
+                focusMode={effectiveFocusMode}
+                modelPath={modelPath}
+                mode={mode}
+                onBoundsChange={setModelBounds}
+                onReady={() => setModelReady(true)}
+                presentationProgress={presentationProgress}
+                selectedHotspot={selectedHotspot}
+              />
             </Suspense>
             {sceneHotspotsEnabled ? (
               <Hotspots
+                mode={mode}
                 onSelectHotspot={onSelectHotspot}
                 selectedHotspot={selectedHotspot}
                 useModelPosition
@@ -202,7 +247,13 @@ function RoverScene({
             ) : null}
           </group>
           <CameraRig
+            allowInteraction={allowInteraction}
+            cinematicActive={cinematicActive}
+            cinematicPaused={cinematicPaused}
+            focusMode={effectiveFocusMode}
+            modelBounds={modelBounds}
             mode={mode}
+            presentationProgress={presentationProgress}
             resetNonce={resetNonce}
             selectedHotspot={selectedHotspot}
             useModelPosition={sceneHotspotsEnabled}
@@ -210,12 +261,14 @@ function RoverScene({
         </Canvas>
 
         <div className="pointer-events-none absolute left-4 top-4 rounded-sm border border-white/10 bg-black/45 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-          {modelAvailable ? activeModelLabel : 'Mode proxy en attente du GLB'}
+          {modelReady ? activeModelLabel : 'Mode attente'}
         </div>
 
-        <div className="pointer-events-none absolute bottom-4 right-4 rounded-sm border border-white/10 bg-black/38 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-          Drag / Zoom / Tap hotspot
-        </div>
+        {showInteractionHint ? (
+          <div className="pointer-events-none absolute bottom-4 right-4 rounded-sm border border-white/10 bg-black/38 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
+            {allowInteraction ? 'Tourner / zoomer / choisir un point' : 'Sequence guidee'}
+          </div>
+        ) : null}
       </div>
     </ViewerErrorBoundary>
   )

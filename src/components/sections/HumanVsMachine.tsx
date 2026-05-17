@@ -14,7 +14,7 @@ function HumanVsMachine() {
           <SectionTitle
             description={siteContent.humanProblem.title}
             eyebrow="MODULE 04 / Probleme humain"
-            title="L&apos;enjeu n&apos;est pas seulement de rouler. Il est de tenir."
+            title="Les limites humaines entre corps, esprit et solitude"
           />
           <div className="grid gap-4 md:grid-cols-3">
             {siteContent.humanProblem.categories.map((item) => (
@@ -35,10 +35,10 @@ function HumanVsMachine() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-space via-space/25 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 space-y-3 p-5">
-            <p className="mono-copy">Human / machine</p>
+            <p className="mono-copy">Homme / machine</p>
             <p className="max-w-md text-sm leading-7 text-lunar/80">
-              Les machines sont deja excellentes pour le calcul et la repetition. Le projet
-              vise ce qu&apos;elles ne vivent pas: la fatigue, l&apos;attente, la contemplation.
+              Le memoire oppose moins deux camps qu&apos;il ne pose une tension: la machine
+              automatise, l&apos;humain habite, observe et endure.
             </p>
           </div>
         </div>

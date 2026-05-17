@@ -1,7 +1,9 @@
+import { clsx } from 'clsx'
 import { useState } from 'react'
 import ScanLine from '@/components/ui/ScanLine'
 
 type ModelFallbackProps = {
+  className?: string
   description: string
   poster: string
   title: string
@@ -9,20 +11,27 @@ type ModelFallbackProps = {
 }
 
 function ModelFallback({
+  className,
   description,
   poster,
   title,
   videoUrl,
 }: ModelFallbackProps) {
   const [videoFailed, setVideoFailed] = useState(false)
+  const frameClassName = className
+    ? clsx('image-frame', className)
+    : 'image-frame min-h-[360px] sm:min-h-[420px] lg:min-h-[520px]'
+  const mediaClassName = className
+    ? 'h-full w-full object-cover'
+    : 'h-full min-h-[360px] w-full object-cover sm:min-h-[420px] lg:min-h-[520px]'
 
   return (
-    <div className="image-frame min-h-[520px]">
+    <div className={frameClassName}>
       <ScanLine />
       {videoUrl && !videoFailed ? (
         <video
           autoPlay
-          className="h-full min-h-[520px] w-full object-cover"
+          className={mediaClassName}
           loop
           muted
           onError={() => setVideoFailed(true)}
@@ -32,7 +41,7 @@ function ModelFallback({
       ) : (
         <img
           alt={title}
-          className="h-full min-h-[520px] w-full object-cover"
+          className={mediaClassName}
           loading="lazy"
           src={poster}
         />

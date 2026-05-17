@@ -32,10 +32,10 @@ function SketchGallery() {
           title="Croquis, rendus et details de projet"
         />
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
           {galleryCategories.map((category) => (
             <button
-              className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+              className={`shrink-0 rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
                 activeCategory === category
                   ? 'border-lime-300/25 bg-lime-300/8 text-lunar'
                   : 'border-white/10 bg-white/[0.03] text-dust hover:text-lunar'
@@ -52,7 +52,7 @@ function SketchGallery() {
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {filteredItems.map((item) => (
             <button
-              className="image-frame group min-h-[280px] text-left"
+              className="image-frame group min-h-[240px] text-left sm:min-h-[280px]"
               key={`${item.category}-${item.title}`}
               onClick={() => setSelectedItem(item)}
               type="button"

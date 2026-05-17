@@ -14,6 +14,10 @@ async function collectImages(directory) {
     entries.map(async (entry) => {
       const entryPath = path.join(directory, entry.name)
       if (entry.isDirectory()) {
+        if (/\\raw$/i.test(entryPath) || /\/raw$/i.test(entryPath)) {
+          return []
+        }
+
         return collectImages(entryPath)
       }
       if (/\.(jpe?g|png)$/i.test(entry.name)) {
@@ -43,7 +47,19 @@ async function main() {
 
   for (const sourcePath of images) {
     const outputPath = sourcePath.replace(/\.(jpe?g|png)$/i, '.webp')
-    await sharp(sourcePath).webp({ quality: 82 }).toFile(outputPath)
+    const isThumbnail = /[\\/]thumbnails[\\/]/i.test(sourcePath)
+    const maxWidth = isThumbnail ? 1200 : 2200
+    const maxHeight = isThumbnail ? 1200 : 2200
+
+    await sharp(sourcePath)
+      .resize({
+        width: maxWidth,
+        height: maxHeight,
+        fit: 'inside',
+        withoutEnlargement: true,
+      })
+      .webp({ effort: 5, quality: isThumbnail ? 74 : 78 })
+      .toFile(outputPath)
     converted += 1
   }
 

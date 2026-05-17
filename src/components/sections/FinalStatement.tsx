@@ -21,7 +21,7 @@ function FinalStatement() {
           <div className="absolute inset-0 bg-gradient-to-t from-space via-space/55 to-space/20" />
 
           <div className="relative z-10 flex min-h-[520px] flex-col justify-end gap-6 p-6 sm:p-8 lg:p-10">
-            <p className="mission-kicker">MODULE 13 / Conclusion manifeste</p>
+            <p className="mission-kicker">MODULE 13 / Conclusion</p>
             <h2 className="section-title max-w-5xl">{siteContent.finalStatement.title}</h2>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button

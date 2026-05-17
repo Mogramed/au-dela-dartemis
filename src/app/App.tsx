@@ -5,8 +5,10 @@ import MissionNav from '@/components/layout/MissionNav'
 import ProgressBar from '@/components/layout/ProgressBar'
 import ContextMoon from '@/components/sections/ContextMoon'
 import DesignProcess from '@/components/sections/DesignProcess'
+import ArchiveFilms from '@/components/sections/ArchiveFilms'
 import FinalStatement from '@/components/sections/FinalStatement'
 import HeroMission from '@/components/sections/HeroMission'
+import MotionShowcase from '@/components/sections/MotionShowcase'
 import HumanVsMachine from '@/components/sections/HumanVsMachine'
 import InteriorExperience from '@/components/sections/InteriorExperience'
 import Manifesto from '@/components/sections/Manifesto'
@@ -22,6 +24,7 @@ import { siteContent } from '@/data/siteContent'
 import { useLenisScroll } from '@/hooks/useLenisScroll'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { preloadAssets } from '@/utils/preloadAssets'
+import { shouldPreloadHeavyAssets, shouldReduceEffects } from '@/utils/performance'
 
 const sectionIds = sections.map((section) => section.id)
 const ThreeDViewer = lazy(() => import('@/components/sections/ThreeDViewer'))
@@ -86,28 +89,38 @@ function LazyViewerSection() {
 
 function App() {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const liteExperience = shouldReduceEffects()
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? 'hero')
-  const [bootVisible, setBootVisible] = useState(true)
+  const [bootVisible, setBootVisible] = useState(!liteExperience)
 
   useLenisScroll()
 
   useEffect(() => {
-    preloadAssets([
-      siteContent.hero.image,
-      siteContent.hero.secondaryImage,
-      siteContent.viewer.posterImage,
-      siteContent.memoire.previewImage,
-    ])
-  }, [])
+    const assets = shouldPreloadHeavyAssets()
+      ? [
+          siteContent.hero.image,
+          siteContent.hero.secondaryImage,
+          siteContent.viewer.posterImage,
+          siteContent.memoire.previewImage,
+        ]
+      : [siteContent.hero.image]
+
+    preloadAssets(assets)
+  }, [liteExperience])
 
   useEffect(() => {
+    if (liteExperience) {
+      setBootVisible(false)
+      return undefined
+    }
+
     const timeout = window.setTimeout(
       () => setBootVisible(false),
       prefersReducedMotion ? 900 : 3200,
     )
 
     return () => window.clearTimeout(timeout)
-  }, [prefersReducedMotion])
+  }, [liteExperience, prefersReducedMotion])
 
   useEffect(() => {
     const observedSections = sectionIds
@@ -149,8 +162,9 @@ function App() {
       <Header currentSection={activeSection} />
       <MissionNav currentSection={activeSection} sections={navigation} />
 
-      <main className="relative z-10">
+      <main className="relative z-10 pb-28 sm:pb-32 xl:pb-0">
         <HeroMission />
+        <MotionShowcase />
         <Manifesto />
         <ContextMoon />
         <HumanVsMachine />
@@ -161,6 +175,7 @@ function App() {
         <InteriorExperience />
         <TechnicalBreakdown />
         <MissionScenario />
+        <ArchiveFilms />
         <MemoireReader />
         <FinalStatement />
       </main>

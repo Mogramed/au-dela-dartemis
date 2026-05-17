@@ -6,6 +6,7 @@ import { useAnimeReveal } from '@/hooks/useAnimeReveal'
 
 function DesignProcess() {
   const revealRef = useAnimeReveal<HTMLElement>()
+  const [featureVisual, ...supportVisuals] = siteContent.process.visuals
 
   return (
     <section className="shell-section section-anchor" id="process" ref={revealRef}>
@@ -28,33 +29,41 @@ function DesignProcess() {
           ))}
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="image-frame min-h-[300px]">
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <div className="image-frame min-h-[300px] sm:min-h-[360px] xl:min-h-[420px]">
             <ScanLine />
             <img
-              alt="Wireframe interieur"
+              alt={featureVisual.alt}
               className="h-full w-full object-cover"
               loading="lazy"
-              src="/images/process/interior-linework.jpg"
+              src={featureVisual.src}
             />
-          </div>
-          <div className="image-frame min-h-[300px]">
-            <ScanLine />
-            <img
-              alt="Usage scenario"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              src="/images/process/usage-scenario.jpg"
-            />
-          </div>
-          <div className="image-frame min-h-[300px]">
-            <ScanLine />
-            <img
-              alt="Dashboard concept"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              src="/images/process/dashboard-concept.jpg"
-            />
+            <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <p className="mono-copy text-lime-300/90">{featureVisual.label}</p>
+                <p className="mt-3 max-w-lg text-sm leading-7 text-lunar/78">
+                  Les recherches se lisent ici comme une progression continue: cadrage,
+                  usage, volume, organisation interieure et synthese.
+                </p>
+              </div>
+            </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {supportVisuals.map((visual) => (
+              <div className="image-frame min-h-[200px] sm:min-h-[220px] xl:min-h-[240px]" key={visual.label}>
+                <ScanLine />
+                <img
+                  alt={visual.alt}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                  src={visual.src}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="mono-copy text-lunar/90">{visual.label}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export const timeline: TimelineItem[] = [
     label: 'Phase 01',
     title: 'Retour durable sur la Lune',
     description:
-      "Le decor n'est plus celui d'un drapeau plante, mais celui d'une presence qui s'installe, travaille et recommence.",
+      "Le cadre n'est plus celui d'une visite ponctuelle mais celui d'une installation durable, de travail et de retour a la base.",
   },
   {
     label: 'Phase 02',
@@ -27,12 +27,12 @@ export const timeline: TimelineItem[] = [
     label: 'Phase 04',
     title: "L'automatisation ne suffit pas",
     description:
-      "Les machines explorent, mesurent et securisent. Elles ne remplacent pas l'experience sensible d'un equipage.",
+      "Les machines explorent, mesurent et securisent. Elles ne remplacent pas l'experience vecue d'un equipage.",
   },
   {
     label: 'Phase 05',
     title: 'Le vehicule devient lieu',
     description:
-      "La mobilite n'est plus seulement un trajet: elle devient un sas mental entre effort, recuperation et contemplation.",
+      "La mobilite n'est plus seulement un trajet: elle devient un espace de transition entre effort, recuperation et observation.",
   },
 ]

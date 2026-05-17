@@ -18,14 +18,34 @@ function TechnicalBreakdown() {
         />
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px]">
-          <div className="image-frame min-h-[460px]">
-            <ScanLine />
-            <img
-              alt="Schema du chassis"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              src={siteContent.technical.image}
-            />
+          <div className="grid gap-4">
+            <div className="image-frame min-h-[460px]">
+              <ScanLine />
+              <img
+                alt="Lecture technique du rover lunaire"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                src={siteContent.technical.image}
+              />
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {siteContent.technical.detailImages.map((image) => (
+                <div className="image-frame min-h-[220px]" key={image.src}>
+                  <ScanLine />
+                  <img
+                    alt={image.alt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    src={image.src}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-space via-space/12 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4">
+                    <p className="mono-copy text-lunar/90">{image.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-4">

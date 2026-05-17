@@ -2,6 +2,26 @@ type NavigatorWithDeviceMemory = Navigator & {
   deviceMemory?: number
 }
 
+const getDeviceFlags = () => {
+  if (typeof window === 'undefined') {
+    return {
+      coarsePointer: false,
+      lowMemory: false,
+      prefersReducedMotion: false,
+    }
+  }
+
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const memory = (navigator as NavigatorWithDeviceMemory).deviceMemory ?? 8
+
+  return {
+    coarsePointer,
+    lowMemory: memory <= 4,
+    prefersReducedMotion,
+  }
+}
+
 export const supportsWebGL = () => {
   if (typeof window === 'undefined') {
     return false
@@ -19,12 +39,15 @@ export const supportsWebGL = () => {
 }
 
 export const shouldPreferLiteViewer = () => {
-  if (typeof window === 'undefined') {
-    return false
-  }
+  const { coarsePointer, lowMemory } = getDeviceFlags()
 
-  const coarsePointer = window.matchMedia('(pointer: coarse)').matches
-  const memory = (navigator as NavigatorWithDeviceMemory).deviceMemory ?? 8
-
-  return coarsePointer || memory <= 4
+  return coarsePointer || lowMemory
 }
+
+export const shouldReduceEffects = () => {
+  const { coarsePointer, lowMemory, prefersReducedMotion } = getDeviceFlags()
+
+  return prefersReducedMotion || coarsePointer || lowMemory
+}
+
+export const shouldPreloadHeavyAssets = () => !shouldReduceEffects()

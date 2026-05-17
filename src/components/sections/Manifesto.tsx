@@ -25,7 +25,7 @@ function Manifesto() {
         </div>
 
         <div className="grid gap-4">
-          <HudCard eyebrow="Question centrale" title="Pourquoi encore des humains ?">
+          <HudCard eyebrow="Question centrale" title="Pourquoi envoyer des humains sur la Lune ?">
             <p className="section-copy text-sm">{siteContent.metadata.question}</p>
           </HudCard>
 
@@ -44,7 +44,7 @@ function Manifesto() {
             ))}
           </div>
 
-          <HudCard eyebrow="Manifesto" title="Statement">
+          <HudCard eyebrow="Memoire" title="Extrait">
             <p className="text-lg leading-8 text-lunar/90">{siteContent.manifesto.quote}</p>
           </HudCard>
         </div>

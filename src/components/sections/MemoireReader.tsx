@@ -19,7 +19,7 @@ function MemoireReader() {
           title={siteContent.memoire.title}
         />
 
-        <div className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)]">
+        <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
           <div className="grid gap-4">
             <HudCard eyebrow="PDF" title="Memoire complet">
               <p className="text-sm leading-7 text-lunar/78">
@@ -51,6 +51,28 @@ function MemoireReader() {
               </div>
             </HudCard>
 
+            <HudCard eyebrow="PPTX" title="Presentation de soutenance">
+              <p className="text-sm leading-7 text-lunar/78">
+                Le PowerPoint final est aussi embarque dans le site pour garder un acces simple
+                pendant le jury ou en envoi apres soutenance.
+              </p>
+              <div className="mt-5 flex flex-col gap-3">
+                <Link className={buttonClassNames({ variant: 'solid' })} to="/presentation">
+                  <Presentation className="h-4 w-4" />
+                  <span>Voir la presentation</span>
+                </Link>
+                <Button
+                  href={siteContent.memoire.presentationUrl}
+                  icon={<Download className="h-4 w-4" />}
+                  rel="noreferrer"
+                  target="_blank"
+                  variant="outline"
+                >
+                  Telecharger le PPTX
+                </Button>
+              </div>
+            </HudCard>
+
             <div className="image-frame min-h-[240px]">
               <ScanLine />
               <img
@@ -62,7 +84,7 @@ function MemoireReader() {
             </div>
           </div>
 
-          <div className="hud-panel hidden min-h-[620px] overflow-hidden lg:block">
+          <div className="hud-panel hidden min-h-[620px] overflow-hidden xl:block">
             <iframe
               className="h-full min-h-[620px] w-full bg-white"
               src={`${siteContent.memoire.pdfUrl}#view=FitH`}

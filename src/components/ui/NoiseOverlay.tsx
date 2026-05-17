@@ -1,4 +1,10 @@
+import { shouldReduceEffects } from '@/utils/performance'
+
 function NoiseOverlay() {
+  if (shouldReduceEffects()) {
+    return null
+  }
+
   return (
     <div
       aria-hidden

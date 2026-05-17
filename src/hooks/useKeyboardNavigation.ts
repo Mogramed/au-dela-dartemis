@@ -13,11 +13,13 @@ export const useKeyboardNavigation = ({
 }: KeyboardNavigationOptions) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+      if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+        event.preventDefault()
         onNext?.()
       }
 
       if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        event.preventDefault()
         onPrevious?.()
       }
 

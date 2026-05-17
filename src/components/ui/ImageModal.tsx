@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import type { GalleryItem } from '@/data/gallery'
 
@@ -8,6 +9,12 @@ type ImageModalProps = {
 }
 
 function ImageModal({ item, onClose }: ImageModalProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   useEffect(() => {
     if (!item) {
       return undefined
@@ -23,31 +30,87 @@ function ImageModal({ item, onClose }: ImageModalProps) {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [item, onClose])
 
-  if (!item) {
+  useEffect(() => {
+    if (!item) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const previousTouchAction = document.body.style.touchAction
+    const previousPaddingRight = document.body.style.paddingRight
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+    document.body.style.overflow = 'hidden'
+    document.body.style.touchAction = 'none'
+    document.body.dataset.modalOpen = 'true'
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    }
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.body.style.touchAction = previousTouchAction
+      document.body.style.paddingRight = previousPaddingRight
+      delete document.body.dataset.modalOpen
+    }
+  }, [item])
+
+  if (!item || !mounted) {
     return null
   }
 
-  return (
-    <div className="fixed inset-0 z-[90] bg-black/86 p-4 backdrop-blur-md sm:p-8">
-      <button
-        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center border border-white/10 bg-black/50 text-lunar transition-colors hover:bg-white/10"
-        onClick={onClose}
-        type="button"
-      >
-        <X className="h-4 w-4" />
-      </button>
+  return createPortal(
+    <div
+      aria-label={item.title}
+      aria-modal="true"
+      className="fixed inset-0 z-[120] overflow-y-auto bg-black/92 backdrop-blur-md"
+      data-lenis-prevent-wheel
+      onClick={onClose}
+      role="dialog"
+    >
+      <div className="min-h-full px-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 sm:py-6 md:px-8">
+        <div
+          className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="relative w-full rounded-sm border border-white/10 bg-space/96 shadow-[0_38px_120px_rgba(0,0,0,0.55)]">
+            <button
+              aria-label="Fermer l'image"
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-sm border border-white/10 bg-black/72 text-lunar transition-colors hover:bg-white/10"
+              onClick={onClose}
+              type="button"
+            >
+              <X className="h-4 w-4" />
+            </button>
 
-      <div className="mx-auto flex h-full max-w-6xl flex-col justify-center gap-6">
-        <div className="image-frame max-h-[78vh]">
-          <img alt={item.title} className="h-full w-full object-contain" src={item.src} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="mono-copy">{item.category}</p>
-          <h3 className="text-2xl uppercase">{item.title}</h3>
-          <p className="max-w-3xl text-sm leading-7 text-lunar/80">{item.description}</p>
+            <div className="grid gap-4 p-3 sm:p-4 md:grid-cols-[minmax(0,1fr)_300px] md:p-5">
+              <div className="image-frame flex min-h-[240px] items-center justify-center overflow-hidden bg-black sm:min-h-[360px] md:min-h-[70vh] md:max-h-[78vh]">
+                <img
+                  alt={item.title}
+                  className="max-h-[70vh] w-full object-contain sm:max-h-[74vh]"
+                  src={item.src}
+                />
+              </div>
+
+              <div className="flex flex-col gap-3 rounded-sm border border-white/10 bg-white/[0.03] p-4 md:justify-end">
+                <p className="mono-copy">{item.category}</p>
+                <h3 className="text-2xl uppercase leading-tight">{item.title}</h3>
+                <p className="text-sm leading-7 text-lunar/80">{item.description}</p>
+                <button
+                  className="mt-2 inline-flex min-h-11 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] px-4 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
+                  onClick={onClose}
+                  type="button"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 

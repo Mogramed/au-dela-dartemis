@@ -1,3 +1,4 @@
+import AutoVideo from '@/components/ui/AutoVideo'
 import HudCard from '@/components/ui/HudCard'
 import ScanLine from '@/components/ui/ScanLine'
 import SectionTitle from '@/components/ui/SectionTitle'
@@ -6,6 +7,7 @@ import { useAnimeReveal } from '@/hooks/useAnimeReveal'
 
 function InteriorExperience() {
   const revealRef = useAnimeReveal<HTMLElement>()
+  const [heroVisual, ...detailVisuals] = siteContent.interior.visuals
 
   return (
     <section className="shell-section section-anchor" id="interior" ref={revealRef}>
@@ -14,7 +16,7 @@ function InteriorExperience() {
           <SectionTitle
             description={siteContent.interior.description}
             eyebrow="MODULE 09 / Experience interieure"
-            title="L&apos;habitacle devient un sas de recuperation"
+            title={siteContent.interior.title}
           />
           <div className="grid gap-4 md:grid-cols-2">
             {siteContent.interior.spaces.map((space) => (
@@ -24,23 +26,38 @@ function InteriorExperience() {
         </div>
 
         <div className="grid gap-4">
-          <div className="image-frame min-h-[320px]">
+          <div className="image-frame min-h-[360px] lg:min-h-[420px]">
             <ScanLine />
-            <img
-              alt="Poste de conduite"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              src="/images/interior/driver-station.jpg"
-            />
+            <AutoVideo className="h-full w-full object-cover" poster={heroVisual.poster} src={heroVisual.src} />
+            <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <p className="mono-copy text-lunar/90">{heroVisual.label}</p>
+            </div>
           </div>
-          <div className="image-frame min-h-[320px]">
-            <ScanLine />
-            <img
-              alt="Zone arriere contemplative"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              src="/images/interior/rear-observatory.jpg"
-            />
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {detailVisuals.map((visual, index) => (
+              <div
+                className={`image-frame min-h-[240px] ${index === detailVisuals.length - 1 ? 'sm:col-span-2' : ''}`}
+                key={`${visual.type}-${visual.src}`}
+              >
+                <ScanLine />
+                {visual.type === 'video' ? (
+                  <AutoVideo className="h-full w-full object-cover" poster={visual.poster} src={visual.src} />
+                ) : (
+                  <img
+                    alt={visual.alt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    src={visual.src}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-space via-space/12 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="mono-copy text-lunar/90">{visual.label}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

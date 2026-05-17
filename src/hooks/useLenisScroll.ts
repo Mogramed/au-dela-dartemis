@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { shouldReduceEffects } from '@/utils/performance'
 
 export const useLenisScroll = () => {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || shouldReduceEffects()) {
       return undefined
     }
 
