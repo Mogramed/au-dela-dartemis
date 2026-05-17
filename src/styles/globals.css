@@ -114,6 +114,10 @@
     @apply min-w-0 rounded-sm border border-white/[0.12] bg-space/[0.58] px-4 py-4 backdrop-blur-sm;
   }
 
+  .hero-summary-card {
+    @apply rounded-sm border border-white/10 bg-black/70 p-4 backdrop-blur-sm sm:p-5;
+  }
+
   .motion-stat {
     @apply rounded-sm border border-white/[0.12] bg-white/[0.03] px-4 py-4 backdrop-blur-sm;
   }
@@ -414,7 +418,9 @@
   }
 
   .mobile-nav-chip {
-    @apply shrink-0 rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2.5 transition-colors duration-300;
+    @apply shrink-0 rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 transition-colors duration-300;
+    min-width: 84px;
+    scroll-snap-align: start;
   }
 
   .mobile-nav-chip span:first-child {
@@ -422,7 +428,7 @@
   }
 
   .mobile-nav-chip span:last-child {
-    @apply mt-1 block text-xs uppercase tracking-[0.04em] text-lunar opacity-80;
+    @apply mt-1 block text-[11px] uppercase tracking-[0.04em] text-lunar opacity-80;
   }
 
   .mobile-nav-chip[data-active='true'] {
@@ -435,5 +441,31 @@
 
   .mobile-nav-chip[data-active='true'] span:last-child {
     @apply text-lunar;
+  }
+
+  @media (max-width: 767px) {
+    .section-inner {
+      @apply px-4 py-14;
+    }
+
+    .hero-stage {
+      @apply p-3;
+    }
+
+    .hero-summary-card {
+      @apply p-4;
+    }
+
+    .hero-metric {
+      @apply px-3 py-3;
+    }
+
+    .metric-value {
+      @apply mt-2 text-[15px] leading-6;
+    }
+
+    .mobile-nav-chip {
+      min-width: 78px;
+    }
   }
 }

@@ -7,9 +7,6 @@ type MissionNavProps = {
 }
 
 function MissionNav({ currentSection, sections }: MissionNavProps) {
-  const activeSection =
-    sections.find((section) => section.id === currentSection) ?? sections[0]
-
   return (
     <>
       <nav className="fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 xl:flex">
@@ -36,23 +33,9 @@ function MissionNav({ currentSection, sections }: MissionNavProps) {
       </nav>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-space/92 px-3 pt-3 backdrop-blur-md xl:hidden"
-        style={{ paddingBottom: 'max(0.85rem, env(safe-area-inset-bottom))' }}
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-space/94 px-3 pt-2 backdrop-blur-md xl:hidden"
+        style={{ paddingBottom: 'max(0.7rem, env(safe-area-inset-bottom))' }}
       >
-        <div className="mb-3 flex items-center justify-between gap-3 px-1">
-          <div className="min-w-0">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dust">
-              Navigation
-            </p>
-            <p className="mt-1 truncate text-sm uppercase text-lunar">
-              {activeSection.code} / {activeSection.label}
-            </p>
-          </div>
-          <span className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-            {sections.length} modules
-          </span>
-        </div>
-
         <div className="flex gap-2 overflow-x-auto pb-1">
           {sections.map((section) => {
             const isActive = currentSection === section.id

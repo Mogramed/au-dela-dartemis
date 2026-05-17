@@ -4,9 +4,11 @@ import SectionTitle from '@/components/ui/SectionTitle'
 import { siteContent } from '@/data/siteContent'
 import { timeline } from '@/data/timeline'
 import { useAnimeReveal } from '@/hooks/useAnimeReveal'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 function ContextMoon() {
   const revealRef = useAnimeReveal<HTMLElement>()
+  const isMobile = useIsMobile()
 
   return (
     <section className="shell-section section-anchor" id="context" ref={revealRef}>
@@ -19,7 +21,7 @@ function ContextMoon() {
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.06fr)_minmax(340px,0.94fr)] xl:items-start">
           <div className="grid gap-4 xl:sticky xl:top-24">
-            <div className="image-frame min-h-[420px] sm:min-h-[520px] xl:min-h-[620px]">
+            <div className="image-frame min-h-[320px] sm:min-h-[520px] xl:min-h-[620px]">
               <ScanLine />
               <img
                 alt="Rover en contexte lunaire"
@@ -69,10 +71,10 @@ function ContextMoon() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 md:hidden">
+            <div className="-mx-1 flex gap-3 overflow-x-auto px-1 pb-1 md:hidden">
               {siteContent.context.metrics.map((metric) => (
                 <div
-                  className="rounded-sm border border-white/12 bg-white/[0.03] px-4 py-4 backdrop-blur-sm"
+                  className="min-w-[170px] rounded-sm border border-white/12 bg-white/[0.03] px-4 py-4 backdrop-blur-sm"
                   key={metric.label}
                 >
                   <p className="metric-label">{metric.label}</p>
@@ -106,24 +108,48 @@ function ContextMoon() {
             </div>
           </div>
 
-          <div className="grid gap-4">
-            {timeline.map((item, index) => (
-              <article className="hud-panel px-4 py-4 sm:px-5 sm:py-5" key={item.title}>
-                <div className="grid gap-4 sm:grid-cols-[64px_minmax(0,1fr)] sm:items-start">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-white/12 bg-white/[0.04] font-mono text-[11px] uppercase tracking-[0.18em] text-lime-300 sm:h-14 sm:w-14 sm:text-[12px]">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
+          {isMobile ? (
+            <div className="-mx-1 flex gap-4 overflow-x-auto px-1 pb-1">
+              {timeline.map((item, index) => (
+                <article
+                  className="hud-panel min-w-[280px] px-4 py-4"
+                  key={item.title}
+                >
                   <div className="space-y-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-white/12 bg-white/[0.04] font-mono text-[11px] uppercase tracking-[0.18em] text-lime-300">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dust">
                       {item.label}
                     </p>
-                    <h3 className="text-lg uppercase leading-tight text-lunar sm:text-xl">{item.title}</h3>
-                    <p className="text-sm leading-7 text-lunar/78">{item.description}</p>
+                    <h3 className="text-base uppercase leading-tight text-lunar">{item.title}</h3>
+                    <p className="text-sm leading-6 text-lunar/78">{item.description}</p>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:gap-4">
+              {timeline.map((item, index) => (
+                <article className="hud-panel px-4 py-4 sm:px-5 sm:py-5" key={item.title}>
+                  <div className="grid gap-3 sm:grid-cols-[64px_minmax(0,1fr)] sm:items-start">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-white/12 bg-white/[0.04] font-mono text-[11px] uppercase tracking-[0.18em] text-lime-300 sm:h-14 sm:w-14 sm:text-[12px]">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <div className="space-y-3">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dust">
+                        {item.label}
+                      </p>
+                      <h3 className="text-base uppercase leading-tight text-lunar sm:text-xl">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-7 text-lunar/78">{item.description}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

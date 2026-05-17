@@ -162,7 +162,7 @@ function App() {
       <Header currentSection={activeSection} />
       <MissionNav currentSection={activeSection} sections={navigation} />
 
-      <main className="relative z-10 pb-28 sm:pb-32 xl:pb-0">
+      <main className="relative z-10 pb-24 sm:pb-28 xl:pb-0">
         <HeroMission />
         <MotionShowcase />
         <Manifesto />

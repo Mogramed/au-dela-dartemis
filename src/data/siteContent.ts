@@ -10,18 +10,19 @@ export const siteContent = {
       "A l'ere de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
   },
   hero: {
-    label: 'MISSION ARCHIVE',
+    label: 'ARCHIVE PROJET',
     title: "AU-DELA D'ARTEMIS",
     subtitle: 'Concevoir une experience humaine pour la Lune',
     question:
       "A l'ere de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
     description:
-      "Le site reprend la question du memoire et rassemble les principales vues du projet pour la soutenance.",
+      'Le site rassemble le memoire, les visuels, les videos et les vues techniques du projet.',
     image: assetPaths.hero.exterior,
     secondaryImage: buildAssetPath('/images/archive/motion-rear-lounge.jpg'),
     video: {
-      src: assetPaths.videos.zip37,
-      poster: buildAssetPath('/images/gallery-extra/cool2.jpg'),
+      src: assetPaths.videos.missionTurnaroundReflect,
+      poster: assetPaths.hero.exterior,
+      label: 'Rotation exterieure',
       objectPosition: 'center center',
     },
     stats: [
@@ -33,17 +34,17 @@ export const siteContent = {
       {
         src: buildAssetPath('/images/archive/archive-side-profile.jpg'),
         alt: 'Profil archive du rover',
-        label: 'Profile / archive',
+        label: 'Profil lateral',
       },
       {
-        src: buildAssetPath('/images/technical/dashboard-detail.jpg'),
+        src: buildAssetPath('/images/technical/dashboard-steering.jpg'),
         alt: 'Detail de dashboard et de commandes',
-        label: 'Controls / detail',
+        label: 'Tableau de bord',
       },
       {
-        src: buildAssetPath('/images/gallery-extra/dash-volant-trop-cool.jpg'),
-        alt: 'Detail de cockpit et de pilotage',
-        label: 'Cockpit / pilotage',
+        src: buildAssetPath('/images/technical/interior-section.jpg'),
+        alt: 'Coupe interieure du projet',
+        label: 'Coupe interieure',
       },
     ],
     signals: [
@@ -503,7 +504,7 @@ export const siteContent = {
   memoire: {
     title: 'Memoire et documents',
     description:
-      "Le site reste un support de soutenance, mais il donne aussi acces au memoire PDF, aux planches et aux visuels clefs pour consultation apres le jury.",
+      "Le site donne acces au memoire PDF, aux planches et aux visuels clefs du projet.",
     pdfUrl: assetPaths.pdf,
     presentationUrl: assetPaths.presentation,
     presentationDeckUrl: '/presentation',
@@ -517,6 +518,6 @@ export const siteContent = {
   },
   footer: {
     credit: 'Buron Mateo - Diplomes 2026 - Strate Ecole de Design',
-    secondary: 'Archive web pour soutenance et consultation QR code',
+    secondary: 'Site de reference pour consulter le memoire, les images et les videos du projet',
   },
 } as const

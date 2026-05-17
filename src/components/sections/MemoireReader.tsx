@@ -23,7 +23,7 @@ function MemoireReader() {
           <div className="grid gap-4">
             <HudCard eyebrow="PDF" title="Memoire complet">
               <p className="text-sm leading-7 text-lunar/78">
-                Le PDF complet reste directement accessible pendant et apres la soutenance.
+                Le PDF complet reste accessible directement depuis le site.
               </p>
               <div className="mt-5 flex flex-col gap-3">
                 <Button
@@ -46,20 +46,20 @@ function MemoireReader() {
                 </Button>
                 <Link className={buttonClassNames({ variant: 'ghost' })} to="/presentation">
                   <Presentation className="h-4 w-4" />
-                  <span>Mode presentation</span>
+                  <span>Voir les planches</span>
                 </Link>
               </div>
             </HudCard>
 
-            <HudCard eyebrow="PPTX" title="Presentation de soutenance">
+            <HudCard eyebrow="PPTX" title="Planches du projet">
               <p className="text-sm leading-7 text-lunar/78">
-                Le PowerPoint final est aussi embarque dans le site pour garder un acces simple
-                pendant le jury ou en envoi apres soutenance.
+                Le fichier source des planches reste disponible en complement du mode de lecture
+                integre au site.
               </p>
               <div className="mt-5 flex flex-col gap-3">
                 <Link className={buttonClassNames({ variant: 'solid' })} to="/presentation">
                   <Presentation className="h-4 w-4" />
-                  <span>Voir la presentation</span>
+                  <span>Voir les planches</span>
                 </Link>
                 <Button
                   href={siteContent.memoire.presentationUrl}

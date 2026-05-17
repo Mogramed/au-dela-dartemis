@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
+import { shouldReduceEffects } from '@/utils/performance'
 
 function ProgressBar() {
   const [progress, setProgress] = useState(0)
+
+  if (shouldReduceEffects()) {
+    return null
+  }
 
   useEffect(() => {
     const updateProgress = () => {

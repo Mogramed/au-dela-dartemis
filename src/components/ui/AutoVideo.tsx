@@ -2,6 +2,7 @@ import { clsx } from 'clsx'
 import type { VideoHTMLAttributes } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { shouldReduceEffects } from '@/utils/performance'
 
 type AutoVideoProps = Omit<VideoHTMLAttributes<HTMLVideoElement>, 'autoPlay'> & {
   eager?: boolean
@@ -25,6 +26,7 @@ function AutoVideo({
   ...videoProps
 }: AutoVideoProps) {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const reduceEffects = shouldReduceEffects()
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [shouldLoad, setShouldLoad] = useState(Boolean(eager))
   const [isVisible, setIsVisible] = useState(Boolean(eager))
@@ -48,15 +50,15 @@ function AutoVideo({
         setIsVisible(nextVisible)
       },
       {
-        rootMargin,
-        threshold: [0, 0.2, 0.5, 0.85],
+        rootMargin: reduceEffects ? '48px 0px' : rootMargin,
+        threshold: reduceEffects ? [0, 0.35, 0.7] : [0, 0.2, 0.5, 0.85],
       },
     )
 
     observer.observe(node)
 
     return () => observer.disconnect()
-  }, [rootMargin, src])
+  }, [reduceEffects, rootMargin, src])
 
   useEffect(() => {
     const node = videoRef.current

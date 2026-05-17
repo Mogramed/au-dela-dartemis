@@ -8,6 +8,7 @@ import RoverScene from '@/components/three/RoverScene'
 import { hotspots } from '@/data/hotspots'
 import { siteContent } from '@/data/siteContent'
 import { useAnimeReveal } from '@/hooks/useAnimeReveal'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { useViewerStore, type ViewerFocusMode, type ViewerMode } from '@/stores/viewerStore'
 import { assetPaths } from '@/utils/assetPaths'
 import { shouldPreferLiteViewer } from '@/utils/performance'
@@ -44,6 +45,7 @@ const focusModes: {
 
 function ThreeDViewer() {
   const revealRef = useAnimeReveal<HTMLElement>()
+  const isMobile = useIsMobile()
   const focusMode = useViewerStore((state) => state.focusMode)
   const mode = useViewerStore((state) => state.mode)
   const performanceMode = useViewerStore((state) => state.performanceMode)
@@ -55,8 +57,9 @@ function ThreeDViewer() {
   const setPerformanceMode = useViewerStore((state) => state.setPerformanceMode)
   const setSelectedHotspot = useViewerStore((state) => state.setSelectedHotspot)
   const systemPrefersLiteViewer = shouldPreferLiteViewer()
-  const effectivePerformanceMode = performanceMode || systemPrefersLiteViewer
-  const [interactiveEnabled, setInteractiveEnabled] = useState(!systemPrefersLiteViewer)
+  const mobileLiteViewer = isMobile || systemPrefersLiteViewer
+  const effectivePerformanceMode = performanceMode || mobileLiteViewer
+  const [interactiveEnabled, setInteractiveEnabled] = useState(!mobileLiteViewer)
   const [cinematicPaused, setCinematicPaused] = useState(false)
   const cinematicSequence = useMemo(
     () => [
@@ -77,10 +80,10 @@ function ThreeDViewer() {
     interactiveEnabled && !effectivePerformanceMode && mode === 'cinematic'
 
   useEffect(() => {
-    if (!systemPrefersLiteViewer) {
+    if (!mobileLiteViewer) {
       setInteractiveEnabled(true)
     }
-  }, [systemPrefersLiteViewer])
+  }, [mobileLiteViewer])
 
   useEffect(() => {
     if (!cinematicActive) {
@@ -155,7 +158,7 @@ function ThreeDViewer() {
                   Recentrer la camera
                 </Button>
               </>
-            ) : (
+            ) : !mobileLiteViewer ? (
               <Button
                 icon={<MonitorPlay className="h-4 w-4" />}
                 onClick={() => setInteractiveEnabled(true)}
@@ -163,11 +166,11 @@ function ThreeDViewer() {
               >
                 Activer la 3D
               </Button>
-            )}
+            ) : null}
           </div>
         </div>
 
-        {systemPrefersLiteViewer && !performanceMode ? (
+        {mobileLiteViewer && !performanceMode ? (
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-dust">
             Profil mobile leger active pour garder une navigation fluide sur cet appareil.
           </p>
@@ -183,25 +186,27 @@ function ThreeDViewer() {
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_360px]">
           <div className="hud-panel overflow-hidden p-3 sm:p-4">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {viewerModes.map((viewerMode) => (
-                <button
-                  className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
-                    mode === viewerMode.value && interactiveEnabled
-                      ? 'border-lime-300/25 bg-lime-300/10 text-lunar'
-                      : interactiveEnabled
-                        ? 'border-white/10 bg-white/[0.03] text-dust hover:bg-white/[0.08] hover:text-lunar'
-                        : 'border-white/6 bg-white/[0.02] text-dust/45'
-                  }`}
-                  disabled={!interactiveEnabled}
-                  key={viewerMode.value}
-                  onClick={() => setMode(viewerMode.value)}
-                  type="button"
-                >
-                  {viewerMode.label}
-                </button>
-              ))}
-            </div>
+            {interactiveEnabled || !mobileLiteViewer ? (
+              <div className="mb-3 flex flex-wrap gap-2 overflow-x-auto pb-1">
+                {viewerModes.map((viewerMode) => (
+                  <button
+                    className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                      mode === viewerMode.value && interactiveEnabled
+                        ? 'border-lime-300/25 bg-lime-300/10 text-lunar'
+                        : interactiveEnabled
+                          ? 'border-white/10 bg-white/[0.03] text-dust hover:bg-white/[0.08] hover:text-lunar'
+                          : 'border-white/6 bg-white/[0.02] text-dust/45'
+                    }`}
+                    disabled={!interactiveEnabled}
+                    key={viewerMode.value}
+                    onClick={() => setMode(viewerMode.value)}
+                    type="button"
+                  >
+                    {viewerMode.label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             {interactiveEnabled ? (
               <RoverScene
@@ -217,17 +222,17 @@ function ThreeDViewer() {
             ) : (
               <div className="space-y-4">
                 <ModelFallback
-                  description="Sur smartphone, la vue archive reste la plus propre et la plus fluide. La 3D reste disponible a la demande."
+                  description="Sur telephone, la vue archive reste la lecture la plus nette. La 3D allegee reste disponible a la demande."
                   poster={assetPaths.hero.exterior}
                   title="Vue archive"
                 />
-                <div className="flex flex-wrap gap-3">
+                <div className="grid gap-3 sm:flex sm:flex-wrap">
                   <Button
                     icon={<MonitorPlay className="h-4 w-4" />}
                     onClick={() => setInteractiveEnabled(true)}
                     variant="solid"
                   >
-                    Activer la vue 3D
+                    Activer la 3D allegee
                   </Button>
                   <Button href={siteContent.memoire.pdfUrl} variant="outline">
                     Voir le memoire
@@ -238,66 +243,123 @@ function ThreeDViewer() {
           </div>
 
           <div className="grid gap-4">
-            <HudCard eyebrow={activeHotspot.label} title={activeHotspot.title}>
-              <p className="text-sm leading-7 text-lunar/78">{activeHotspot.description}</p>
-              <div className="mt-5 space-y-3">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-                  Mode de lecture
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {focusModes.map((item) => (
-                    <button
-                      className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
-                        focusMode === item.value
-                          ? 'border-lime-300/25 bg-lime-300/10 text-lunar'
-                          : 'border-white/10 bg-white/[0.03] text-dust hover:bg-white/[0.08] hover:text-lunar'
-                      }`}
-                      key={item.value}
-                      onClick={() => setFocusMode(item.value)}
-                      type="button"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-                <p className="text-xs leading-6 text-lunar/58">
-                  {focusModes.find((item) => item.value === focusMode)?.description}
-                </p>
-              </div>
-              <ul className="mt-4 space-y-3">
-                {activeHotspot.details.map((detail) => (
-                  <li className="flex items-start gap-3 text-sm leading-6 text-lunar/76" key={detail}>
-                    <Zap className="mt-1 h-3.5 w-3.5 text-lime-300" />
-                    <span>{detail}</span>
-                  </li>
-                ))}
-              </ul>
-            </HudCard>
+            {mobileLiteViewer && !interactiveEnabled ? (
+              <>
+                <HudCard eyebrow="Lecture mobile" title="Un point de lecture a la fois">
+                  <p className="text-sm leading-7 text-lunar/78">
+                    Sur telephone, le viewer commence par une vue archive stable. La 3D allegee
+                    peut etre activee si besoin, mais la lecture reste volontairement plus simple.
+                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {activeHotspot.details.slice(0, 3).map((detail) => (
+                      <li className="flex items-start gap-3 text-sm leading-6 text-lunar/76" key={detail}>
+                        <Zap className="mt-1 h-3.5 w-3.5 text-lime-300" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </HudCard>
 
-            <HudCard eyebrow="Hotspots" title="Points de lecture">
-              <div className="flex flex-wrap gap-2">
-                {hotspots.map((hotspot) => (
-                  <button
-                    className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
-                      selectedHotspot === hotspot.id
-                        ? 'border-lime-300/25 bg-lime-300/8 text-lunar'
-                        : 'border-white/10 bg-white/[0.03] text-dust hover:text-lunar'
-                    }`}
-                    key={hotspot.id}
-                    onClick={() => setSelectedHotspot(hotspot.id)}
-                    type="button"
-                  >
-                    <span className="inline-flex items-center gap-2">
-                      <span
-                        className="h-2 w-2 rounded-full"
-                        style={{ backgroundColor: hotspot.accentColor ?? '#c6ff3e' }}
-                      />
-                      <span>{hotspot.label}</span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </HudCard>
+                <HudCard eyebrow="Points de lecture" title="Selection rapide">
+                  <div className="flex flex-wrap gap-2">
+                    {hotspots.slice(0, 5).map((hotspot) => (
+                      <button
+                        className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                          selectedHotspot === hotspot.id
+                            ? 'border-lime-300/25 bg-lime-300/8 text-lunar'
+                            : 'border-white/10 bg-white/[0.03] text-dust hover:text-lunar'
+                        }`}
+                        key={hotspot.id}
+                        onClick={() => setSelectedHotspot(hotspot.id)}
+                        type="button"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <span
+                            className="h-2 w-2 rounded-full"
+                            style={{ backgroundColor: hotspot.accentColor ?? '#c6ff3e' }}
+                          />
+                          <span>{hotspot.label}</span>
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </HudCard>
+              </>
+            ) : (
+              <>
+                <HudCard eyebrow={activeHotspot.label} title={activeHotspot.title}>
+                  <p className="text-sm leading-7 text-lunar/78">{activeHotspot.description}</p>
+                  {!isMobile ? (
+                    <div className="mt-5 space-y-3">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
+                        Mode de lecture
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {focusModes.map((item) => (
+                          <button
+                            className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                              focusMode === item.value
+                                ? 'border-lime-300/25 bg-lime-300/10 text-lunar'
+                                : 'border-white/10 bg-white/[0.03] text-dust hover:bg-white/[0.08] hover:text-lunar'
+                            }`}
+                            key={item.value}
+                            onClick={() => setFocusMode(item.value)}
+                            type="button"
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-xs leading-6 text-lunar/58">
+                        {focusModes.find((item) => item.value === focusMode)?.description}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="mt-5 rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
+                        Mode actif
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-lunar/76">
+                        Sur telephone, le viewer privilegie une lecture simple et un mode 3D allege.
+                      </p>
+                    </div>
+                  )}
+                  <ul className="mt-4 space-y-3">
+                    {activeHotspot.details.map((detail) => (
+                      <li className="flex items-start gap-3 text-sm leading-6 text-lunar/76" key={detail}>
+                        <Zap className="mt-1 h-3.5 w-3.5 text-lime-300" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </HudCard>
+
+                <HudCard eyebrow="Hotspots" title="Points de lecture">
+                  <div className="flex flex-wrap gap-2">
+                    {hotspots.map((hotspot) => (
+                      <button
+                        className={`rounded-sm border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                          selectedHotspot === hotspot.id
+                            ? 'border-lime-300/25 bg-lime-300/8 text-lunar'
+                            : 'border-white/10 bg-white/[0.03] text-dust hover:text-lunar'
+                        }`}
+                        key={hotspot.id}
+                        onClick={() => setSelectedHotspot(hotspot.id)}
+                        type="button"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <span
+                            className="h-2 w-2 rounded-full"
+                            style={{ backgroundColor: hotspot.accentColor ?? '#c6ff3e' }}
+                          />
+                          <span>{hotspot.label}</span>
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </HudCard>
+              </>
+            )}
           </div>
         </div>
       </div>

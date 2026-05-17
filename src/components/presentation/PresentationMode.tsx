@@ -149,12 +149,11 @@ function PresentationMode() {
         <div className="flex min-h-screen items-center justify-center px-4">
           <div className="hud-panel max-w-xl p-6">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-lime-300">
-              Presentation module
+              Planches du projet
             </p>
-            <p className="mt-4 text-2xl uppercase leading-tight">Preparation du deck en cours</p>
+            <p className="mt-4 text-2xl uppercase leading-tight">Chargement des planches</p>
             <p className="mt-4 text-sm leading-7 text-lunar/74">
-              Les slides du PowerPoint sont chargees dans un mode de lecture web pour la
-              soutenance.
+              Les planches du projet sont chargees dans un mode de lecture web.
             </p>
           </div>
         </div>
@@ -168,12 +167,12 @@ function PresentationMode() {
         <div className="flex min-h-screen items-center justify-center px-4">
           <div className="hud-panel max-w-xl p-6">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-red-300">
-              Presentation module
+              Planches du projet
             </p>
             <p className="mt-4 text-2xl uppercase leading-tight">Lecture indisponible</p>
             <p className="mt-4 text-sm leading-7 text-lunar/74">
               {loadError ??
-                "Le deck n'a pas pu etre charge dans le site. Le fichier PPTX reste toutefois telechargeable depuis l'archive."}
+                "Les planches n'ont pas pu etre chargees dans le site. Le fichier source reste toutefois telechargeable depuis l'archive."}
             </p>
           </div>
         </div>
@@ -192,7 +191,7 @@ function PresentationMode() {
           <div className="mx-auto flex max-w-[1720px] flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
             <div className="min-w-0 rounded-sm border border-white/10 bg-white/[0.03] px-3 py-1.5">
               <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dust">
-                Presentation mode
+                Mode de lecture
               </p>
               <p className="mt-1.5 truncate text-sm uppercase text-lunar sm:text-base">
                 {presentationLabel}
@@ -223,7 +222,7 @@ function PresentationMode() {
                 target="_blank"
               >
                 <Download className="h-4 w-4" />
-                <span>PPTX original</span>
+                <span>Fichier source</span>
               </a>
               <button
                 className="inline-flex min-h-9 items-center gap-2 border border-white/10 bg-white/[0.03] px-3 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
@@ -231,7 +230,7 @@ function PresentationMode() {
                 type="button"
               >
                 <X className="h-4 w-4" />
-                <span>Retour archive</span>
+                <span>Retour au projet</span>
               </button>
             </div>
           </div>
