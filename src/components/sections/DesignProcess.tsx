@@ -1,4 +1,5 @@
 import HudCard from '@/components/ui/HudCard'
+import AutoVideo from '@/components/ui/AutoVideo'
 import ScanLine from '@/components/ui/ScanLine'
 import SectionTitle from '@/components/ui/SectionTitle'
 import { siteContent } from '@/data/siteContent'
@@ -7,6 +8,10 @@ import { useAnimeReveal } from '@/hooks/useAnimeReveal'
 function DesignProcess() {
   const revealRef = useAnimeReveal<HTMLElement>()
   const [featureVisual, ...supportVisuals] = siteContent.process.visuals
+  const getMediaClassName = (fit?: string) =>
+    fit === 'contain'
+      ? 'h-full w-full bg-black/50 object-contain p-4 sm:p-5'
+      : 'h-full w-full object-cover'
 
   return (
     <section className="shell-section section-anchor" id="process" ref={revealRef}>
@@ -34,26 +39,37 @@ function DesignProcess() {
             <ScanLine />
             <img
               alt={featureVisual.alt}
-              className="h-full w-full object-cover"
+              className={getMediaClassName(featureVisual.fit)}
               loading="lazy"
               src={featureVisual.src}
+              style={{ objectPosition: featureVisual.objectPosition }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <p className="mono-copy text-lime-300/90">{featureVisual.label}</p>
-              </div>
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <p className="mono-copy text-lime-300/90">{featureVisual.label}</p>
             </div>
+          </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             {supportVisuals.map((visual) => (
               <div className="image-frame min-h-[200px] sm:min-h-[220px] xl:min-h-[240px]" key={visual.label}>
                 <ScanLine />
-                <img
-                  alt={visual.alt}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  src={visual.src}
-                />
+                {visual.type === 'video' ? (
+                  <AutoVideo
+                    className={getMediaClassName(visual.fit)}
+                    poster={visual.poster}
+                    src={visual.src}
+                    style={{ objectPosition: visual.objectPosition }}
+                  />
+                ) : (
+                  <img
+                    alt={visual.alt}
+                    className={getMediaClassName(visual.fit)}
+                    loading="lazy"
+                    src={visual.src}
+                    style={{ objectPosition: visual.objectPosition }}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-4">
                   <p className="mono-copy text-lunar/90">{visual.label}</p>

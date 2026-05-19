@@ -26,6 +26,8 @@ export type GalleryItem = {
   category: Exclude<GalleryCategory, 'All'>
   description: string
   type: 'image'
+  fit?: 'cover' | 'contain'
+  objectPosition?: string
 }
 
 export const galleryItems: GalleryItem[] = [
@@ -105,6 +107,8 @@ export const galleryItems: GalleryItem[] = [
     category: 'Sketches',
     description: 'Habitacle',
     type: 'image',
+    fit: 'contain',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/gallery-extra/comment-trabs.jpg'),
@@ -126,6 +130,8 @@ export const galleryItems: GalleryItem[] = [
     category: 'Sketches',
     description: 'Posture',
     type: 'image',
+    fit: 'contain',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/gallery-extra/portedd.jpg'),
@@ -140,6 +146,8 @@ export const galleryItems: GalleryItem[] = [
     category: 'Process',
     description: 'Transport lunaire',
     type: 'image',
+    fit: 'contain',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/custom/tableau-de-bord.png'),
@@ -147,6 +155,8 @@ export const galleryItems: GalleryItem[] = [
     category: 'Process',
     description: 'Commandes',
     type: 'image',
+    fit: 'contain',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/technical/chassis-layout.jpg'),
@@ -182,6 +192,8 @@ export const galleryItems: GalleryItem[] = [
     category: 'Technical',
     description: 'Rangement',
     type: 'image',
+    fit: 'contain',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/custom/dashboard-driver.png'),
@@ -217,6 +229,7 @@ export const galleryItems: GalleryItem[] = [
     category: 'Interior',
     description: 'Banquette arrière',
     type: 'image',
+    objectPosition: 'center center',
   },
   {
     src: buildAssetPath('/images/custom/zone-detente-2.png'),

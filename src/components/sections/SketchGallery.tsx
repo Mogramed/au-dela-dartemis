@@ -61,9 +61,12 @@ function SketchGallery() {
               <ScanLine />
               <img
                 alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
+                  item.fit === 'contain' ? 'bg-black/50 object-contain p-4' : 'object-cover'
+                }`}
                 loading="lazy"
                 src={item.src}
+                style={{ objectPosition: item.objectPosition }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 space-y-2 p-4">
