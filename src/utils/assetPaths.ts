@@ -2,13 +2,13 @@ const normalizeImageAsset = (path: string) =>
   /\.(jpe?g|png)$/i.test(path) ? path.replace(/\.(jpe?g|png)$/i, '.webp') : path
 
 const publicAsset = (path: string) => encodeURI(normalizeImageAsset(path))
+const presentationVersion = '20260519b'
 
 export const buildAssetPath = publicAsset
 
 export const assetPaths = {
   pdf: publicAsset('/pdf/memoire-au-dela-artemis.pdf'),
-  presentation: publicAsset('/presentation/presentation-diplome.pptx'),
-  presentationManifest: publicAsset('/presentation/slides-manifest.json'),
+  presentationManifest: `/presentation/slides-manifest.json?v=${presentationVersion}`,
   models: {
     high: publicAsset('/models/rover-high.glb'),
     low: publicAsset('/models/rover-low.glb'),

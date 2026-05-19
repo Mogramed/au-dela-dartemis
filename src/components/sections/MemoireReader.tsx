@@ -21,7 +21,7 @@ function MemoireReader() {
 
         <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
           <div className="grid gap-4">
-            <HudCard eyebrow="PDF" title="Memoire complet">
+            <HudCard eyebrow="PDF" title="Mémoire complet">
               <p className="text-sm leading-7 text-lunar/78">
                 Le PDF complet reste accessible directement depuis le site.
               </p>
@@ -33,7 +33,7 @@ function MemoireReader() {
                   target="_blank"
                   variant="solid"
                 >
-                  Ouvrir le memoire
+                  Ouvrir le mémoire
                 </Button>
                 <Button
                   href={siteContent.memoire.pdfUrl}
@@ -42,7 +42,7 @@ function MemoireReader() {
                   target="_blank"
                   variant="outline"
                 >
-                  Telecharger le PDF
+                  Télécharger le PDF
                 </Button>
                 <Link className={buttonClassNames({ variant: 'ghost' })} to="/presentation">
                   <Presentation className="h-4 w-4" />
@@ -51,25 +51,15 @@ function MemoireReader() {
               </div>
             </HudCard>
 
-            <HudCard eyebrow="PPTX" title="Planches du projet">
+            <HudCard eyebrow="Planches" title="Lecture intégrée">
               <p className="text-sm leading-7 text-lunar/78">
-                Le fichier source des planches reste disponible en complement du mode de lecture
-                integre au site.
+                Les planches sont accessibles dans un mode de lecture intégré au site.
               </p>
               <div className="mt-5 flex flex-col gap-3">
                 <Link className={buttonClassNames({ variant: 'solid' })} to="/presentation">
                   <Presentation className="h-4 w-4" />
                   <span>Voir les planches</span>
                 </Link>
-                <Button
-                  href={siteContent.memoire.presentationUrl}
-                  icon={<Download className="h-4 w-4" />}
-                  rel="noreferrer"
-                  target="_blank"
-                  variant="outline"
-                >
-                  Telecharger le PPTX
-                </Button>
               </div>
             </HudCard>
 
@@ -88,7 +78,7 @@ function MemoireReader() {
             <iframe
               className="h-full min-h-[620px] w-full bg-white"
               src={`${siteContent.memoire.pdfUrl}#view=FitH`}
-              title="Memoire Au-dela d'Artemis"
+              title="Mémoire Au-delà d'Artémis"
             />
           </div>
         </div>

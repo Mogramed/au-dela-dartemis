@@ -32,7 +32,7 @@ function Header({ currentSection }: HeaderProps) {
         <div className="hidden items-center gap-3 lg:flex">
           <div className="hud-panel px-4 py-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dust">
-              Active module
+              Module actif
             </p>
             <p className="mt-1 text-sm uppercase">
               {activeSection?.code} / {activeSection?.label}
@@ -46,7 +46,7 @@ function Header({ currentSection }: HeaderProps) {
             target="_blank"
           >
             <FileText className="h-3.5 w-3.5" />
-            <span>Voir le memoire</span>
+            <span>Ouvrir le mémoire</span>
           </a>
 
           <Link className={buttonClassNames({ size: 'sm', variant: 'ghost' })} to="/presentation">

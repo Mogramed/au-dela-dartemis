@@ -14,7 +14,7 @@ function RoverReveal() {
         <div className="section-stack">
           <SectionTitle
             description={siteContent.rover.description}
-            eyebrow="MODULE 05 / Reponse design"
+            eyebrow="MODULE 05 / Réponse design"
             title={siteContent.rover.title}
           />
           <div className="grid gap-4 sm:grid-cols-2">
@@ -22,58 +22,67 @@ function RoverReveal() {
               <HudCard eyebrow={spec.label} key={spec.label} title={spec.value} />
             ))}
           </div>
+          <div className="grid gap-4">
+            {siteContent.rover.arguments.map((argument) => (
+              <HudCard eyebrow={argument.label} key={argument.title} title={argument.title}>
+                <p className="text-sm leading-7 text-lunar/78">{argument.description}</p>
+              </HudCard>
+            ))}
+          </div>
         </div>
 
         <div className="grid gap-4">
-          <div className="image-frame min-h-[300px] sm:min-h-[380px] xl:min-h-[460px]">
+          <div className="image-frame min-h-[300px] sm:min-h-[420px] xl:min-h-[500px]">
             <ScanLine />
-            <AutoVideo
+            <img
+              alt="Coupe du véhicule et de sa zone arrière"
               className="h-full w-full object-cover"
-              poster={siteContent.rover.media.poster}
-              rootMargin="120px 0px"
-              src={siteContent.rover.media.src}
+              loading="lazy"
+              src={siteContent.rover.image}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-space via-space/16 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <p className="mono-copy">{siteContent.rover.media.label}</p>
-                <h3 className="mt-3 max-w-xl text-2xl uppercase leading-tight">
-                  Le vehicule se lit comme un espace pressurise de mission.
-                </h3>
-              </div>
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <p className="mono-copy text-lime-300/90">{siteContent.rover.imageLabel}</p>
+              <h3 className="mt-3 max-w-xl text-2xl uppercase leading-tight">
+                Le véhicule est pensé comme une extension de la base.
+              </h3>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-lunar/78">
+                {siteContent.rover.imageCaption}
+              </p>
             </div>
+          </div>
 
-          <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_280px]">
-            <div className="image-frame min-h-[220px] sm:min-h-[240px] xl:col-span-2">
-              <ScanLine />
-              <img
-                alt="Vue exterieure du rover en contexte lunaire"
-                className="h-full w-full object-cover"
-                loading="lazy"
-                src={siteContent.rover.image}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-space via-space/16 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="mono-copy">Vue exterieure / projet</p>
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:col-span-1 xl:grid-cols-1">
-              {siteContent.rover.supportingMedia.map((media) => (
-                <div className="image-frame min-h-[180px] sm:min-h-[220px] xl:min-h-[180px]" key={media.label}>
-                  <ScanLine />
+          <div className="grid gap-4 md:grid-cols-3">
+            {siteContent.rover.mediaCards.map((media) => (
+              <div className="image-frame min-h-[220px] sm:min-h-[240px]" key={media.label}>
+                {'poster' in media ? (
                   <AutoVideo
                     className="h-full w-full object-cover"
                     poster={media.poster}
                     rootMargin="100px 0px"
                     src={media.src}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-space via-space/14 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-4">
-                    <p className="mono-copy text-lunar/90">{media.label}</p>
-                  </div>
+                ) : (
+                  <>
+                    <ScanLine />
+                    <img
+                      alt={media.alt}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                      src={media.src}
+                      style={{
+                        objectPosition:
+                          'objectPosition' in media ? media.objectPosition : 'center center',
+                      }}
+                    />
+                  </>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-space via-space/14 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="mono-copy text-lime-300/90">{media.label}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

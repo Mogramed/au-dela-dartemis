@@ -14,9 +14,9 @@ function ContextMoon() {
     <section className="shell-section section-anchor" id="context" ref={revealRef}>
       <div className="section-inner space-y-10">
         <SectionTitle
-          description="La Lune, miroir de la Terre et d'une promesse d'ailleurs."
+          description="Le retour vers la Lune ne parle plus seulement d'exploit. Il ouvre l'hypothèse d'une présence plus longue, avec des bases, des trajets et des usages quotidiens."
           eyebrow="MODULE 03 / Contexte lunaire"
-          title="De la decouverte a Artemis III"
+          title="De la découverte à Artémis III"
         />
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.06fr)_minmax(340px,0.94fr)] xl:items-start">
@@ -47,11 +47,10 @@ function ContextMoon() {
                 <div className="max-w-2xl rounded-sm border border-white/12 bg-space/56 p-4 backdrop-blur-sm sm:p-5">
                   <p className="mono-copy text-lime-300/90">Terrain de mission</p>
                   <h3 className="mt-3 max-w-xl text-2xl uppercase leading-tight">
-                    Le contexte lunaire deplace la question de la conquete vers celle de l&apos;usage.
+                    La Lune n&apos;est plus seulement un objectif à atteindre, mais un milieu à pratiquer.
                   </h3>
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-lunar/80">
-                    Le rover s&apos;inscrit dans un aller-retour entre base, travail de surface,
-                    observation et retour a l&apos;habitat.
+                    Habitat, maintenance, circulation et récupération deviennent des sujets de projet.
                   </p>
                 </div>
               </div>
@@ -83,12 +82,29 @@ function ContextMoon() {
               ))}
             </div>
 
-            <HudCard eyebrow="Contexte" title="La mobilite devient une condition de vie">
+            <HudCard eyebrow="Contexte" title="Se déplacer devient un besoin quotidien">
               <p className="text-sm leading-7 text-lunar/80">
-                Le programme lunaire ne parle plus d&apos;une expedition ponctuelle. Il parle de
-                circulation, de maintenance, de retour a la base et de vie sous contrainte.
+                Dans une présence prolongée, le véhicule ne sert pas uniquement à travailler. Il
+                permet aussi de sortir de la base, de changer de rythme et de retrouver un rapport
+                au paysage.
               </p>
             </HudCard>
+
+            <div className="image-frame min-h-[220px] overflow-hidden">
+              <img
+                alt={siteContent.context.village.alt}
+                className="h-full w-full object-cover"
+                loading="lazy"
+                src={siteContent.context.village.src}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-space via-space/24 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-4">
+                <p className="mono-copy text-lime-300/90">{siteContent.context.village.title}</p>
+                <p className="mt-2 max-w-lg text-sm leading-7 text-lunar/78">
+                  {siteContent.context.village.description}
+                </p>
+              </div>
+            </div>
 
             <div className="image-frame min-h-[220px] overflow-hidden lg:hidden">
               <img
@@ -99,10 +115,10 @@ function ContextMoon() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-space via-space/20 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="mono-copy text-lime-300/90">Lecture secondaire</p>
+                <p className="mono-copy text-lime-300/90">Appuis et terrain</p>
                 <p className="mt-2 text-sm leading-7 text-lunar/78">
-                  Cette vue rappelle que le vehicule reste toujours lie a son contexte de
-                  terrain.
+                  Cette vue rappelle que le véhicule reste lié à la surface lunaire, à ses appuis
+                  et à ses contraintes de déplacement.
                 </p>
               </div>
             </div>

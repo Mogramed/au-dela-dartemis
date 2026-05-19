@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
-import { Download, LayoutGrid, X } from 'lucide-react'
+import { LayoutGrid, X } from 'lucide-react'
 import KeyboardControls from '@/components/presentation/KeyboardControls'
 import SlideView, { type PresentationDeckSlide } from '@/components/presentation/SlideView'
 import { siteContent } from '@/data/siteContent'
@@ -52,7 +52,7 @@ function PresentationMode() {
         setLoadError(null)
       } catch (error) {
         if (!cancelled) {
-          setLoadError('Impossible de charger la presentation integree.')
+          setLoadError('Impossible de charger la présentation intégrée.')
         }
       } finally {
         if (!cancelled) {
@@ -118,10 +118,24 @@ function PresentationMode() {
   }, [currentSlide?.label])
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement | null
+
+    if (target?.closest('button, a, video, [role="button"]')) {
+      pointerStartXRef.current = null
+      return
+    }
+
     pointerStartXRef.current = event.clientX
   }
 
   const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement | null
+
+    if (target?.closest('button, a, video, [role="button"]')) {
+      pointerStartXRef.current = null
+      return
+    }
+
     const startX = pointerStartXRef.current
 
     if (startX == null) {
@@ -153,7 +167,7 @@ function PresentationMode() {
             </p>
             <p className="mt-4 text-2xl uppercase leading-tight">Chargement des planches</p>
             <p className="mt-4 text-sm leading-7 text-lunar/74">
-              Les planches du projet sont chargees dans un mode de lecture web.
+              Les planches du projet sont chargées dans un mode de lecture web.
             </p>
           </div>
         </div>
@@ -172,7 +186,7 @@ function PresentationMode() {
             <p className="mt-4 text-2xl uppercase leading-tight">Lecture indisponible</p>
             <p className="mt-4 text-sm leading-7 text-lunar/74">
               {loadError ??
-                "Les planches n'ont pas pu etre chargees dans le site. Le fichier source reste toutefois telechargeable depuis l'archive."}
+                "Les planches n'ont pas pu être chargées dans le site. Le fichier source reste toutefois téléchargeable depuis l'archive."}
             </p>
           </div>
         </div>
@@ -215,15 +229,6 @@ function PresentationMode() {
                 <LayoutGrid className="h-4 w-4" />
                 <span>Planches</span>
               </button>
-              <a
-                className="inline-flex min-h-9 items-center gap-2 border border-white/10 bg-white/[0.03] px-3 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
-                href={siteContent.memoire.presentationUrl}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Download className="h-4 w-4" />
-                <span>Fichier source</span>
-              </a>
               <button
                 className="inline-flex min-h-9 items-center gap-2 border border-white/10 bg-white/[0.03] px-3 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
                 onClick={openArchive}

@@ -17,6 +17,7 @@ import MissionScenario from '@/components/sections/MissionScenario'
 import RoverReveal from '@/components/sections/RoverReveal'
 import SketchGallery from '@/components/sections/SketchGallery'
 import TechnicalBreakdown from '@/components/sections/TechnicalBreakdown'
+import VehicleAccessories from '@/components/sections/VehicleAccessories'
 import BootSequence from '@/components/ui/BootSequence'
 import NoiseOverlay from '@/components/ui/NoiseOverlay'
 import { sections } from '@/data/sections'
@@ -34,7 +35,7 @@ function SectionLoader() {
     <section className="shell-section section-anchor" id="viewer">
       <div className="section-inner">
         <div className="hud-panel p-6 font-mono text-[11px] uppercase tracking-[0.16em] text-dust">
-          Loading viewer module...
+          Chargement de la maquette 3D...
         </div>
       </div>
     </section>
@@ -80,7 +81,7 @@ function LazyViewerSection() {
     <section className="shell-section section-anchor" id="viewer" ref={placeholderRef}>
       <div className="section-inner">
         <div className="hud-panel p-6 font-mono text-[11px] uppercase tracking-[0.16em] text-dust">
-          Viewer module primed...
+          Chargement de la maquette...
         </div>
       </div>
     </section>
@@ -173,6 +174,7 @@ function App() {
         <DesignProcess />
         <SketchGallery />
         <InteriorExperience />
+        <VehicleAccessories />
         <TechnicalBreakdown />
         <MissionScenario />
         <ArchiveFilms />

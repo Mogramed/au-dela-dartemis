@@ -15,7 +15,7 @@ function InteriorExperience() {
         <div className="section-stack">
           <SectionTitle
             description={siteContent.interior.description}
-            eyebrow="MODULE 09 / Experience interieure"
+            eyebrow="MODULE 09 / Expérience intérieure"
             title={siteContent.interior.title}
           />
           <div className="grid gap-4 md:grid-cols-2">

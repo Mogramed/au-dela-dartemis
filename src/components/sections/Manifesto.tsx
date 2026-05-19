@@ -12,7 +12,7 @@ function Manifesto() {
         <div className="section-stack">
           <SectionTitle
             description={siteContent.manifesto.body[0]}
-            eyebrow="MODULE 02 / Memoire"
+            eyebrow="MODULE 02 / Mémoire"
             title={siteContent.manifesto.title}
           />
           <div className="space-y-4" data-reveal-item>
@@ -25,7 +25,7 @@ function Manifesto() {
         </div>
 
         <div className="grid gap-4">
-          <HudCard eyebrow="Question centrale" title="Pourquoi envoyer des humains sur la Lune ?">
+          <HudCard eyebrow="Question du mémoire" title="Pourquoi envoyer des humains sur la Lune ?">
             <p className="section-copy text-sm">{siteContent.metadata.question}</p>
           </HudCard>
 
@@ -44,7 +44,7 @@ function Manifesto() {
             ))}
           </div>
 
-          <HudCard eyebrow="Memoire" title="Extrait">
+          <HudCard eyebrow="Mémoire" title="Extrait">
             <p className="text-lg leading-8 text-lunar/90">{siteContent.manifesto.quote}</p>
           </HudCard>
         </div>

@@ -1,7 +1,9 @@
-import { ArrowDownRight, FileText } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowDownRight, FileText, Play } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import AutoVideo from '@/components/ui/AutoVideo'
 import ScanLine from '@/components/ui/ScanLine'
+import TrailerModal from '@/components/ui/TrailerModal'
 import { siteContent } from '@/data/siteContent'
 import { useAnimeReveal } from '@/hooks/useAnimeReveal'
 import { useIsMobile } from '@/hooks/useIsMobile'
@@ -9,6 +11,7 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 function HeroMission() {
   const revealRef = useAnimeReveal<HTMLElement>()
   const isMobile = useIsMobile()
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false)
 
   const handleExploreProject = () => {
     document.getElementById('motion')?.scrollIntoView({ behavior: 'smooth' })
@@ -33,7 +36,7 @@ function HeroMission() {
                 {siteContent.hero.subtitle}
               </p>
               <div className="hud-panel max-w-2xl p-4 sm:p-5">
-                <p className="mono-copy text-lime-300/90">Question du memoire</p>
+                <p className="mono-copy text-lime-300/90">Question du mémoire</p>
                 <p className="mt-3 text-base leading-8 text-lunar/88 sm:text-lg">
                   {siteContent.hero.question}
                 </p>
@@ -55,7 +58,14 @@ function HeroMission() {
                 target="_blank"
                 variant="ghost"
               >
-                Voir le memoire
+                Ouvrir le mémoire
+              </Button>
+              <Button
+                icon={<Play className="h-4 w-4" />}
+                onClick={() => setIsTrailerOpen(true)}
+                variant="outline"
+              >
+                Voir le film
               </Button>
             </div>
           </div>
@@ -68,7 +78,7 @@ function HeroMission() {
             <div className="grid h-full gap-4">
               <div className="relative min-h-[300px] overflow-hidden rounded-sm border border-white/10 bg-black sm:min-h-[460px] lg:min-h-[520px]">
                 <img
-                  alt="Vue hero du vehicule lunaire"
+                  alt="Coupe habitable du véhicule Hermes-01"
                   className="absolute inset-0 h-full w-full object-cover object-center"
                   loading="eager"
                   src={siteContent.hero.image}
@@ -77,24 +87,23 @@ function HeroMission() {
                 <div className="absolute inset-0 bg-gradient-to-t from-space via-space/8 to-transparent" />
                 <div className="absolute left-4 top-4 z-[3] rounded-sm border border-white/12 bg-space/72 px-3 py-2 backdrop-blur-sm">
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-lime-300">
-                    Archive projet
+                    Archive du projet
                   </p>
                 </div>
                 <div className="absolute right-4 top-4 z-[3] hidden rounded-sm border border-white/12 bg-space/68 px-3 py-2 backdrop-blur-sm sm:block">
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-                    Active module
+                    Module actif
                   </p>
                   <p className="mt-1 text-sm uppercase text-lunar">01 / Mission</p>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 z-[3] p-4 sm:p-6">
                   <div className="hero-summary-card max-w-[35rem]">
-                    <p className="mono-copy text-lime-300/90">Vue generale</p>
+                    <p className="mono-copy text-lime-300/90">Hermes-01</p>
                     <h3 className="mt-3 text-xl uppercase leading-tight text-lunar sm:text-[1.75rem]">
-                      Question, contexte et forme generale du projet.
+                      Véhicule pressurisé pour des sorties courtes hors de la base.
                     </h3>
                     <p className="mt-3 max-w-xl text-sm leading-7 text-lunar/78">
-                      La page d&apos;ouverture pose la question du memoire, montre le volume du
-                      vehicule et introduit les principaux axes de lecture du site.
+                      Le projet lie déplacement, pause, observation et retour vers l&apos;habitat.
                     </p>
                   </div>
                 </div>
@@ -140,7 +149,7 @@ function HeroMission() {
                   {!isMobile ? (
                     <div className="overflow-hidden rounded-sm border border-white/[0.12] bg-space/[0.62] backdrop-blur-sm">
                       <img
-                        alt="Lecture secondaire de l'habitacle"
+                        alt="Lecture secondaire du projet"
                         className="h-36 w-full object-cover object-center"
                         loading="lazy"
                         src={siteContent.hero.secondaryImage}
@@ -155,7 +164,7 @@ function HeroMission() {
                 </div>
               </div>
 
-              <div className="-mx-1 flex gap-3 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
+              <div className="-mx-1 flex gap-3 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:px-0 sm:pb-0">
                 {(isMobile ? siteContent.hero.archiveStrip.slice(0, 2) : siteContent.hero.archiveStrip).map((frame) => (
                   <div
                     className="min-w-[220px] overflow-hidden rounded-sm border border-white/[0.12] bg-space/[0.62] backdrop-blur-sm sm:min-w-0"
@@ -188,6 +197,13 @@ function HeroMission() {
           ))}
         </div>
       </div>
+      <TrailerModal
+        isOpen={isTrailerOpen}
+        onClose={() => setIsTrailerOpen(false)}
+        title={siteContent.hero.trailer.title}
+        trailerUrl={siteContent.hero.trailer.url}
+        videoId={siteContent.hero.trailer.videoId}
+      />
     </section>
   )
 }

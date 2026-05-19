@@ -4,128 +4,136 @@ const zipImage = (filename: string) => buildAssetPath(`/images/zip/${filename}.j
 
 export const siteContent = {
   metadata: {
-    title: "AU-DELA D'ARTEMIS",
-    subtitle: 'Concevoir une experience humaine pour la Lune',
+    title: "AU-DELÀ D'ARTÉMIS",
+    subtitle:
+      'Pourquoi envoyer encore des humains sur la Lune, quand les machines savent déjà explorer ?',
     question:
-      "A l'ere de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
+      "À l'ère de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
   },
   hero: {
-    label: 'ARCHIVE PROJET',
-    title: "AU-DELA D'ARTEMIS",
-    subtitle: 'Concevoir une experience humaine pour la Lune',
+    label: 'ARCHIVE DU PROJET',
+    title: "AU-DELÀ D'ARTÉMIS",
+    subtitle:
+      'Pourquoi envoyer encore des humains sur la Lune, quand les machines savent déjà explorer ?',
     question:
-      "A l'ere de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
+      "À l'ère de l'automatisation, pourquoi ressentons-nous le besoin d'envoyer des humains sur la Lune ?",
     description:
-      'Le site rassemble le memoire, les visuels, les videos et les vues techniques du projet.',
+      'Le projet propose Hermes-01, un véhicule pressurisé imaginé pour des sorties courtes hors de la base lunaire.',
     image: assetPaths.hero.exterior,
-    secondaryImage: buildAssetPath('/images/archive/motion-rear-lounge.jpg'),
+    secondaryImage: buildAssetPath('/images/custom/comfort-zone-astronauts.jpg'),
     video: {
-      src: assetPaths.videos.missionTurnaroundReflect,
+      src: buildAssetPath('/videos/custom/rotation-vehicule.mp4'),
       poster: assetPaths.hero.exterior,
-      label: 'Rotation exterieure',
+      label: 'Hermes-01 / rotation',
       objectPosition: 'center center',
     },
+    trailer: {
+      title: 'Film du projet',
+      videoId: 'kX9Gz3SLDVo',
+      url: 'https://youtu.be/kX9Gz3SLDVo',
+    },
     stats: [
-      { label: 'STATUT', value: 'Prototype conceptuel' },
-      { label: 'USAGE', value: 'Detente + exploration courte' },
-      { label: 'EQUIPAGE', value: '2 astronautes' },
+      { label: 'VÉHICULE', value: 'Hermes-01' },
+      { label: 'USAGE', value: 'Sortie, pause, observation' },
+      { label: 'ÉQUIPAGE', value: '2 personnes' },
     ],
     archiveStrip: [
       {
-        src: buildAssetPath('/images/archive/archive-side-profile.jpg'),
-        alt: 'Profil archive du rover',
-        label: 'Profil lateral',
+        src: buildAssetPath('/images/custom/door-research.jpg'),
+        alt: 'Recherche sur la porte du véhicule',
+        label: 'Recherche sur la porte',
       },
       {
-        src: buildAssetPath('/images/technical/dashboard-steering.jpg'),
-        alt: 'Detail de dashboard et de commandes',
-        label: 'Tableau de bord',
+        src: buildAssetPath('/images/custom/dashboard-driver.png'),
+        alt: 'Vue conducteur du tableau de bord',
+        label: 'Poste de conduite',
       },
       {
-        src: buildAssetPath('/images/technical/interior-section.jpg'),
-        alt: 'Coupe interieure du projet',
-        label: 'Coupe interieure',
+        src: buildAssetPath('/images/custom/dashboard-passenger.png'),
+        alt: 'Vue passager du tableau de bord',
+        label: 'Vue passager',
+      },
+      {
+        src: buildAssetPath('/images/custom/vehicle-styled-exit.png'),
+        alt: 'Hermes-01 sur la surface lunaire',
+        label: 'Hermes-01 / sortie',
       },
     ],
     signals: [
-      { label: 'Cadre', value: 'Memoire' },
+      { label: 'Cadre', value: 'Mémoire' },
       { label: 'Question', value: 'Homme / machine' },
       { label: 'Horizon', value: 'Habiter la Lune' },
     ],
     callout: {
-      eyebrow: 'Question de projet',
-      title: "Donner a l'experience spatiale non seulement une forme, mais un sens.",
+      eyebrow: 'Nom du projet',
+      title: 'Hermes-01, véhicule de sortie courte',
       body:
-        "Le memoire interroge la place de l'humain face a la machine et ouvre le projet vers des usages de cohabitation, d'observation et de recuperation.",
+        "Le projet nomme ainsi un véhicule pressurisé destiné à s'éloigner brièvement de la base, à ménager une pause et à garder le paysage dans le champ.",
     },
   },
   motion: {
-    title: 'Le projet en cinq vues',
+    title: 'Lecture du projet',
     description:
-      "Cette section suit cinq lectures simples du projet: volume, habitacle, posture, architecture technique et retour au paysage.",
-    stats: [
-      { label: 'MODE', value: 'Cinq vues' },
-      { label: 'DESKTOP', value: 'Sequence guidee' },
-      { label: 'MOBILE', value: 'Lecture simplifiee' },
-    ],
-    tags: ['Volume', 'Habitacle', 'Posture', 'Technique', 'Paysage'],
+      "Quelques vues permettent de lire le volume, l'habitacle, la posture et le rapport au paysage.",
+    stats: [],
+    tags: [],
     steps: [
       {
         eyebrow: '01 / Silhouette',
-        title: "Le rover se lit d'abord comme un volume",
+        title: "Le véhicule se lit d'abord comme un volume",
         description:
-          "La premiere vue presente le vehicule dans son ensemble: silhouette, gabarit et rapport au sol.",
+          "La première vue présente le véhicule dans son ensemble : silhouette, gabarit et rapport au sol.",
         accent: 'ice',
         note: 'Volume / silhouette / gabarit',
         media: {
           type: 'image',
           src: zipImage('49'),
-          alt: 'Vue exterieure trois-quarts avant du rover',
-          caption: 'Lecture generale du volume exterieur.',
+          alt: 'Vue extérieure trois-quarts avant du véhicule',
+          caption: "Lecture d'ensemble du volume extérieur.",
           objectPosition: 'center center',
         },
       },
       {
-        eyebrow: '02 / Cockpit',
-        title: "L'habitacle ouvre le projet au paysage",
+        eyebrow: '02 / Cabine',
+        title: "La cabine garde le paysage dans le champ",
         description:
-          "La lecture interieure fait apparaitre la question du regard, du champ visuel et du rapport a l'horizon.",
+          "Cette vue introduit le poste de conduite, le regard et l'ouverture vers la surface lunaire.",
         accent: 'lime',
-        note: 'Habitacle / horizon / observation',
+        note: 'Cabine / regard / horizon',
         media: {
           type: 'image',
           src: buildAssetPath('/images/interior/panorama-cockpit.jpg'),
-          alt: 'Vue interieure vers le paysage lunaire',
-          caption: "L'habitacle se lit d'abord par son ouverture sur le paysage.",
+          alt: 'Vue intérieure ouverte sur le paysage lunaire',
+          caption: "Le poste avant reste lié au paysage.",
           objectPosition: 'center center',
         },
       },
       {
         eyebrow: '03 / Posture',
-        title: 'Le corps retrouve une place dans l usage',
+        title: 'Le projet ménage des postures de repos',
         description:
-          "Le projet ne traite pas seulement le pilotage. Il cherche aussi des positions de repos, de relachement et d'observation.",
+          "Le véhicule ne traite pas seulement le trajet. Il cherche aussi des positions d'attente, de pause et d'observation.",
         accent: 'ice',
-        note: 'Corps / posture / recuperation',
+        note: 'Corps / posture / pause',
         media: {
           type: 'image',
           src: buildAssetPath('/images/gallery-extra/psss-siege.jpg'),
-          alt: "Etude de siege et de posture pour l'habitacle",
-          caption: 'Le siege et la posture rendent visible la question de la recuperation.',
+          alt: "Étude d'assise et de posture pour l'habitacle",
+          caption: "Le dessin met la posture au centre de l'habitacle.",
           objectPosition: 'center center',
         },
       },
       {
-        eyebrow: '04 / Modules',
-        title: "La technique reste lisible sans prendre toute la place",
+        eyebrow: '04 / Structure',
+        title: 'La structure reste lisible',
         description:
-          "Les sous-ensembles donnent de la credibilite au projet, mais ils restent au service de l'habitabilite.",
+          "Les sous-ensembles techniques rendent le projet crédible sans prendre toute la place.",
         accent: 'sand',
-        note: 'Structure / energie / maintenance',
+        note: 'Châssis / énergie / accès',
         media: {
           type: 'image',
           src: buildAssetPath('/images/archive/motion-chassis.jpg'),
-          alt: "Schema d'architecture et de chassis du vehicule",
+          alt: "Schéma d'architecture et de châssis du véhicule",
           caption:
             'Lecture de la structure, des appuis et des sous-ensembles.',
           objectPosition: 'center center',
@@ -133,16 +141,16 @@ export const siteContent = {
       },
       {
         eyebrow: '05 / Horizon',
-        title: 'Le paysage referme la lecture du projet',
+        title: 'Le véhicule retrouve le paysage lunaire',
         description:
-          "La derniere vue remet le vehicule dans son contexte lunaire et relie usage, horizon et mission.",
+          "La dernière vue replace le projet dans l'hypothèse d'une présence plus longue sur la Lune.",
         accent: 'lunar',
-        note: 'Paysage / synthese / mission',
+        note: 'Paysage / base / trajet',
         media: {
           type: 'image',
           src: zipImage('51'),
-          alt: 'Rendu final du rover en contexte lunaire',
-          caption: 'Le vehicule retrouve le paysage et referme la lecture du projet.',
+          alt: 'Rendu final du véhicule dans le paysage lunaire',
+          caption: 'Retour du véhicule dans son contexte lunaire.',
           objectPosition: 'center center',
         },
       },
@@ -150,374 +158,577 @@ export const siteContent = {
   },
   context: {
     image: zipImage('50'),
-    insetImage: buildAssetPath('/images/archive/archive-wheel.jpg'),
+    insetImage: buildAssetPath('/images/custom/wheel-concept.jpg'),
     metrics: [
-      { label: 'Gravite', value: '1/6 g permanent' },
-      { label: 'Horizon', value: 'Mineral et vide' },
-      { label: 'Rythme', value: 'Mission + recuperation' },
+      { label: 'Terrain', value: 'Poussière, pente, vide' },
+      { label: 'Base', value: 'Habitat et trajets courts' },
+      { label: 'Temps', value: 'Mission et récupération' },
     ],
+    village: {
+      src: buildAssetPath('/images/custom/village-lunaire.jpg'),
+      alt: 'Hypothèse de base et de village lunaire',
+      title: 'Village lunaire / hypothèse de base',
+      description:
+        "Cette image replace le projet dans l'hypothèse d'une base lunaire avec habitat, logistique et déplacements de proximité.",
+    },
   },
   manifesto: {
-    title: 'De la conquete a la cohabitation',
+    title: 'De la conquête à la cohabitation',
     body: [
-      "Le memoire ne traite pas la Lune comme un simple territoire a atteindre. Il deplace la question vers la cohabitation et vers la place de l'homme face a la machine.",
-      "Dans cette perspective, le projet ne cherche pas seulement l'efficacite. Il interroge aussi les limites humaines, l'observation, le repos et la maniere d'habiter un temps de mission.",
+      "Au-delà d'Artémis part d'une question volontairement simple : que vient faire l'humain dans un environnement où la machine semble plus résistante, plus précise et plus rentable ?",
+      "Le projet n'oppose pas l'homme et le robot. Il cherche plutôt à comprendre ce que la présence humaine apporte encore : le regard, la perception, l'erreur et le récit.",
     ],
     quote:
-      'Le design comme art de survivre et de ressentir.',
+      "Donner à l'expérience spatiale non seulement une forme, mais un sens.",
     opposingForces: [
       {
         title: 'Machine',
-        points: ['Explorer', 'Mesurer', 'Securiser'],
+        points: ['Cartographier', 'Mesurer', 'Travailler longtemps'],
       },
       {
-        title: 'Humain',
-        points: ['Habiter', 'Observer', 'Ressentir'],
+        title: 'Présence humaine',
+        points: ['Observer', 'Éprouver', 'Interpréter'],
       },
     ],
   },
   humanProblem: {
     title:
-      'Les limites humaines entre corps, esprit et solitude restent au centre du projet.',
+      "Une base lunaire peut protéger, nourrir et organiser le travail. Mais elle peut aussi enfermer.",
     categories: [
       {
-        title: 'Fatigue mentale',
+        title: 'Fatigue',
         description:
-          "Le memoire rappelle que l'environnement spatial ne se limite pas a une performance technique. Il engage aussi l'attention, le temps et la charge mentale.",
+          "Dans un milieu sans alternance naturelle et sans repères familiers, la fatigue devient une donnée du projet.",
       },
       {
-        title: 'Solitude',
+        title: 'Isolement',
         description:
-          "L'isolement et l'absence de repere vivant changent la qualite du temps et du rapport au paysage.",
+          "L'absence d'horizon vivant et la répétition des protocoles changent le rapport au temps et au paysage.",
       },
       {
-        title: 'Corps contraint',
+        title: 'Corps',
         description:
-          'Scaphandre, capsule et protocoles resserrent les gestes. Le projet cherche donc des marges de repos, de relachement et de repositionnement du corps.',
+          "Dans un environnement sans atmosphère, le déplacement devient plus qu'un besoin fonctionnel. Il engage la posture, l'effort et le retour au calme.",
       },
     ],
   },
   rover: {
-    title: 'Habiter sans conquerir',
+    title: 'Habiter sans conquérir',
     description:
-      "Le projet de vehicule pressurise articule deplacement, observation, recuperation et retour a la base.",
-    image: buildAssetPath('/images/archive/archive-dramatic-render.jpg'),
-    media: {
-      type: 'video',
-      src: assetPaths.videos.entryDoorA,
-      poster: buildAssetPath('/images/technical/entry-interface.jpg'),
-      label: 'Seuil / entree pressurisee',
-    },
-    supportingMedia: [
+      "Le véhicule est pensé comme une extension de la base, mais aussi comme une coupure avec elle. Il permet de s'éloigner, de ralentir et d'observer.",
+    image: buildAssetPath('/images/deck/rover-cutaway-observation.jpg'),
+    imageLabel: 'Coupe / zone arrière de repos',
+    imageCaption:
+      'La coupe relie sas, poste de conduite, observation et zone de pause dans un même volume.',
+    arguments: [
       {
-        type: 'video',
-        src: assetPaths.videos.zip25,
-        poster: zipImage('25'),
-        label: 'Cockpit / poste avant',
+        label: 'Pourquoi',
+        title: 'Sortir de la base sans rompre le trajet',
+        description:
+          "Le projet propose un trajet court qui n'est pas seulement utilitaire. Il ouvre un temps différent dans la journée lunaire.",
       },
       {
+        label: 'Usage',
+        title: 'Déplacer, observer, récupérer',
+        description:
+          "Le véhicule est pensé pour s'éloigner, ralentir, regarder et revenir sans se limiter à un point A vers un point B.",
+      },
+      {
+        label: 'Zone arrière',
+        title: 'Une pause dans le volume',
+        description:
+          "La banquette arrière permet de changer de posture, de regarder le paysage et de sortir du seul temps opérationnel.",
+      },
+    ],
+    mediaCards: [
+      {
         type: 'video',
-        src: assetPaths.videos.zip33,
-        poster: zipImage('33'),
-        label: 'Module / oxygene',
+        src: buildAssetPath('/videos/custom/door-close.mp4'),
+        poster: buildAssetPath('/images/custom/door-research.jpg'),
+        label: 'Seuil pressurisé',
+        description:
+          "La porte marque la bascule entre travail de surface et espace de récupération.",
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/dashboard-passenger.png'),
+        alt: 'Vue intérieure du poste avant',
+        label: 'Poste avant',
+        description:
+          "Le poste avant garde le paysage dans le champ et accompagne le déplacement.",
+        objectPosition: 'center center',
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/comfort-zone-astronauts.jpg'),
+        alt: 'Zone arrière occupée par deux astronautes',
+        label: 'Zone arrière',
+        description:
+          "L'arrière accueille un temps de pause, d'observation et de récupération.",
       },
     ],
     specs: [
-      { label: 'Type', value: 'Vehicule lunaire pressurise' },
-      { label: 'Usage', value: 'Deplacement, observation, recuperation' },
-      { label: 'Capacite', value: '2 personnes' },
-      { label: 'Intention', value: 'Habiter la mobilite lunaire' },
+      { label: 'Type', value: 'Véhicule lunaire pressurisé' },
+      { label: 'Usage', value: 'Sortie, pause, observation' },
+      { label: 'Équipage', value: '2 personnes' },
+      { label: 'Intention', value: 'Prolonger un trajet hors de la base' },
     ],
   },
   viewer: {
-    title: 'Viewer 3D interactif',
+    title: 'Maquette 3D',
     description:
-      "Le module privilegie une lecture propre du volume: vue archive rapide sur mobile, 3D optimisee sur desktop, et modes interieurs separes quand ils apportent vraiment quelque chose.",
+      "Cette maquette numérique permet de parcourir les volumes du véhicule, ses zones d'usage et ses choix de conception.",
     posterImage: buildAssetPath('/images/thumbnails/viewer-thumb.jpg'),
   },
   process: {
-    title: 'Recherche, croquis, modelisation, rendus',
+    title: 'Croquis et processus',
     description:
-      "Le projet se construit par etapes: cadrage du memoire, croquis d'usage, mise au point du volume, puis rendus.",
+      "Les images de recherche ne montrent pas seulement un résultat final. Elles rendent visible la manière dont le projet s'est construit : par essais, ajustements, changements d'échelle et choix de proportions.",
     steps: [
       {
         title: 'Recherche',
         description:
-          "Poser la question du memoire et cadrer la place de l'humain face a la machine.",
+          'Poser la question du mémoire et cadrer le terrain du projet.',
       },
       {
         title: 'Croquis',
         description:
-          "Faire apparaitre les usages, la posture et le rapport au paysage avant la mise au point technique.",
+          'Chercher des volumes, des accès et des postures.',
       },
       {
-        title: 'Modelisation',
+        title: 'Modélisation',
         description:
-          "Mettre au point un volume pressurise lisible dans ses masses et dans son organisation interieure.",
+          "Tester l'habitacle, les proportions et les rapports d'échelle.",
       },
       {
         title: 'Rendus',
         description:
-          "Verifier les qualites d'usage, de lumiere, d'echelle et de mise en situation du projet.",
+          "Vérifier l'usage, la lumière et la présence du véhicule sur la surface lunaire.",
       },
     ],
     visuals: [
       {
         type: 'image',
-        src: buildAssetPath('/images/process/interior-linework.jpg'),
-        alt: 'Recherche de coupe interieure et de zones de vie',
-        label: 'Recherche / coupe habitable',
+        src: buildAssetPath('/images/custom/comment-se-range-le-vehicule.png'),
+        alt: 'Schéma de transport et de rangement du véhicule',
+        label: 'Schéma de transport',
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/sketches/cabin-wireframe.jpg'),
-        alt: 'Recherche de volumes interieurs en wireframe',
-        label: 'Volumes / wireframe',
+        src: buildAssetPath('/images/custom/top-view-interieur-vehicule.png'),
+        alt: "Vue du dessus de l'intérieur du véhicule",
+        label: 'Volume intérieur',
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/process/dashboard-concept.jpg'),
-        alt: 'Etude de poste de conduite et de commandes',
-        label: 'Interface / cockpit',
+        src: buildAssetPath('/images/custom/dashboard-driver.png'),
+        alt: 'Vue conducteur du tableau de bord',
+        label: 'Tableau de bord',
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/sketches/volume-wireframe.jpg'),
-        alt: 'Lecture volumique du rover et de ses masses',
-        label: 'Masse / volume',
+        src: buildAssetPath('/images/custom/door-research.jpg'),
+        alt: 'Recherche sur la porte du véhicule',
+        label: "Hypothèse d'accès",
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/renders/overview-capsule.jpg'),
-        alt: 'Vue generale de la capsule et de ses articulations',
-        label: 'Capsule / synthese',
+        src: buildAssetPath('/images/custom/comfort-zone.png'),
+        alt: 'Recherche sur la zone arrière de détente',
+        label: 'Zone arrière',
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/archive/archive-dashboard.jpg'),
-        alt: 'Lecture graphique du tableau de bord et de la zone avant',
-        label: 'Usage / interface',
+        src: buildAssetPath('/images/custom/steering-research.jpg'),
+        alt: 'Recherche sur le volant du véhicule',
+        label: 'Recherche sur le volant',
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/zone-detente-2.png'),
+        alt: 'Seconde vue de la zone arrière de détente',
+        label: 'Vue de la banquette',
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/dashboard-passenger.png'),
+        alt: 'Vue passager du tableau de bord',
+        label: 'Vue passager',
       },
     ],
   },
   interior: {
-    title: 'Le design comme art de survivre et de ressentir',
+    title: 'Expérience intérieure',
     description:
-      "Entre temps de mission et retour a la base, l'habitacle devient un lieu de recuperation, d'observation et de reorientation.",
+      "L'intérieur est pensé autour du corps en faible gravité. Les postures peuvent changer, les appuis deviennent plus souples, et la cabine n'est plus seulement un poste de conduite.",
     spaces: [
-      'Poste de conduite compact',
-      'Zone de detente arriere',
-      'Surfaces pour observation du paysage',
-      'Stockage et acces technique lisibles',
+      'Poste de conduite',
+      'Zone de repos',
+      'Ouverture sur le paysage',
+      'Rangements et accès',
     ],
     visuals: [
       {
         type: 'video',
-        src: assetPaths.videos.zip24,
-        poster: zipImage('24'),
-        label: 'Cockpit / horizon frontal',
+        src: buildAssetPath('/videos/custom/dashboard-to-rear.mp4'),
+        poster: buildAssetPath('/images/custom/dashboard-passenger.png'),
+        label: "Lecture de l'habitacle",
       },
       {
         type: 'image',
-        src: buildAssetPath('/images/interior/driver-station.jpg'),
-        alt: 'Poste conducteur et degagement interieur',
-        label: 'Pilotage / degagement',
+        src: buildAssetPath('/images/custom/dashboard-driver.png'),
+        alt: 'Vue conducteur du tableau de bord',
+        label: 'Poste de conduite',
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/dashboard-passenger.png'),
+        alt: 'Vue passager du tableau de bord',
+        label: 'Vue passager',
+      },
+      {
+        type: 'image',
+        src: buildAssetPath('/images/custom/comfort-zone.png'),
+        alt: 'Vue de la zone arrière de détente',
+        label: 'Zone arrière',
+      },
+      {
+        type: 'video',
+        src: buildAssetPath('/videos/custom/rear-cabin-full.mp4'),
+        poster: buildAssetPath('/images/custom/comfort-zone-astronauts.jpg'),
+        label: 'Habitacle complet',
       },
       {
         type: 'image',
         src: buildAssetPath('/images/interior/rear-observatory.jpg'),
-        alt: 'Zone arriere dediee a l observation et au calme',
-        label: 'Observation / zone arriere',
-      },
-      {
-        type: 'video',
-        src: assetPaths.videos.zip27,
-        poster: zipImage('27'),
-        label: 'Siege / posture de recuperation',
+        alt: "Vue arrière liée au paysage lunaire",
+        label: 'Ouverture arrière',
       },
       {
         type: 'image',
         src: buildAssetPath('/images/interior/low-gravity-lounge.jpg'),
-        alt: 'Zone de micro-recuperation en faible gravite',
-        label: 'Posture / micro-recuperation',
+        alt: 'Banquette arrière et posture de repos',
+        label: 'Banquette arrière',
+      },
+    ],
+  },
+  accessories: {
+    title: 'Accessoires embarqués',
+    description:
+      "Le véhicule emporte quatre accessoires liés aux usages courts : support de survie, rations, eau et rangement du scaphandre.",
+    spotlight: {
+      src: buildAssetPath('/images/deck/accessories-loop.gif'),
+      alt: "Animation d'implantation des accessoires dans l'habitacle",
+      label: 'Implantation / habitacle',
+      title: "Des accessoires intégrés à la zone de vie",
+      description:
+        "Le pack dorsal, les rations, la gourde et le rangement prennent place autour de la banquette et de la paroi latérale sans bloquer la circulation.",
+    },
+    leadCards: [
+      {
+        label: 'Ensemble',
+        title: 'Quatre accessoires embarqués',
+        description:
+          'Chaque module répond à un usage précis : sortie courte, alimentation, eau et rangement du scaphandre.',
+      },
+      {
+        label: 'Usage',
+        title: 'Autonomie de courte durée',
+        description:
+          "Ces éléments prolongent une halte ou une sortie brève sans reconfigurer l'ensemble du véhicule.",
+      },
+    ],
+    items: [
+      {
+        label: 'PLSS',
+        title: 'Portable life support system',
+        description: 'Pack dorsal prévu pour une sortie brève hors du véhicule.',
+        media: {
+          type: 'video',
+          src: buildAssetPath('/videos/deck/plss-turnaround.mp4'),
+          poster: buildAssetPath('/images/deck/accessories-pack-module.webp'),
+        },
+      },
+      {
+        label: 'Ration',
+        title: 'Conserves alimentaires lyophilisées',
+        description: 'Rations compactes pour prolonger une halte ou un retour différé.',
+        media: {
+          type: 'video',
+          src: buildAssetPath('/videos/deck/freeze-dried-ration-turnaround.mp4'),
+          poster: '/images/deck/freeze-dried-ration-poster.jpg',
+        },
+      },
+      {
+        label: 'Eau',
+        title: 'Gourde rechargeable',
+        description: "Réserve d'eau rechargeable accessible depuis la zone de vie.",
+        media: {
+          type: 'video',
+          src: buildAssetPath('/videos/deck/rechargeable-bottle-turnaround.mp4'),
+          poster: '/images/deck/rechargeable-bottle-poster.jpg',
+        },
+      },
+      {
+        label: 'Scaphandre',
+        title: 'Stockage scaphandre',
+        description: "Rangement latéral pour garder l'équipement au plus près du sas.",
+        media: {
+          type: 'video',
+          src: buildAssetPath('/videos/deck/suit-storage-turnaround.mp4'),
+          poster: '/images/deck/suit-storage-poster.jpg',
+        },
       },
     ],
   },
   technical: {
-    title: "Une architecture technique au service d'une experience humaine.",
+    title: "Une architecture technique au service de l'usage.",
     description:
-      "La lecture technique reste secondaire par rapport a l'usage, mais elle rend le projet lisible dans sa structure, ses appuis et son organisation.",
+      "Les choix techniques sont traités comme des contraintes de design : protection, accès, stockage, énergie, visibilité et circulation intérieure.",
     image: buildAssetPath('/images/technical/chassis-layout.jpg'),
     detailImages: [
       {
-        src: buildAssetPath('/images/technical/dashboard-steering.jpg'),
-        alt: 'Detail du tableau de bord et du volant',
-        label: 'Commandes / interface',
+        src: buildAssetPath('/images/custom/wheel-concept.jpg'),
+        alt: 'Concept de roue et contact au sol',
+        label: 'Roue',
+      },
+      {
+        src: buildAssetPath('/images/custom/helmet-storage.png'),
+        alt: 'Stockage des casques de scaphandre',
+        label: 'Stockage',
+      },
+      {
+        src: buildAssetPath('/images/custom/comment-se-range-le-vehicule.png'),
+        alt: 'Schéma de transport et de rangement du véhicule',
+        label: 'Transport',
       },
       {
         src: buildAssetPath('/images/technical/interior-section.jpg'),
-        alt: "Coupe interieure et distribution des fonctions",
-        label: 'Coupe / distribution',
+        alt: 'Coupe intérieure et distribution des fonctions',
+        label: 'Coupe',
       },
       {
-        src: buildAssetPath('/images/technical/wheel-detail.jpg'),
-        alt: 'Detail de roue et de contact au sol',
-        label: 'Appui / roue',
+        src: buildAssetPath('/images/custom/dashboard-driver.png'),
+        alt: 'Vue conducteur du tableau de bord',
+        label: 'Pilotage',
+      },
+      {
+        src: buildAssetPath('/images/custom/top-view-interieur-vehicule.png'),
+        alt: "Vue du dessus de l'habitacle",
+        label: 'Organisation intérieure',
       },
     ],
   },
   scenario: {
-    title: "Scenario d'usage",
+    title: 'Une sortie hors de la base',
     description:
-      "Le vehicule s'inscrit dans un aller-retour entre base, travail de surface, pause et retour a l'habitat.",
+      "Après une journée de mission, l'équipage quitte la base pour un trajet court. Le but n'est pas de produire, de réparer ou d'extraire.",
     steps: [
-      '01 - Sortie de la base',
-      '02 - Traversee silencieuse',
-      '03 - Arret en bord de cratere',
-      '04 - Observation de la Terre',
-      "05 - Retour vers l'habitat",
-    ],
-    media: {
-      clip: {
-        src: assetPaths.videos.entryDoorB,
-        poster: buildAssetPath('/images/archive/motion-entry-door.jpg'),
-        label: 'Sortie de base / sas pressurise',
-      },
-      image: {
-        src: buildAssetPath('/images/archive/motion-final-horizon.jpg'),
-        alt: 'Le rover en suspension face au paysage lunaire',
-        label: 'Arret / horizon terrestre',
-      },
-    },
-    supportFrames: [
       {
-        src: buildAssetPath('/images/process/usage-scenario.jpg'),
-        alt: "Lecture narrative de l'usage du vehicule",
-        title: 'Respiration / poste avant',
+        code: '01',
+        title: 'Sortie de la base',
         description:
-          "Le trajet conduit vers un usage plus habitable: souffler, regarder et se reorienter avant le retour.",
+          "Le sas marque la bascule entre l'habitat, le véhicule et le début du trajet.",
+        media: {
+          src: buildAssetPath('/videos/custom/door-close-wide.mp4'),
+          poster: buildAssetPath('/images/custom/door-research.jpg'),
+          label: 'Sas / départ',
+        },
       },
       {
-        src: buildAssetPath('/images/archive/archive-exterior-rear.jpg'),
-        alt: 'Vue arriere du rover dans le paysage',
-        title: 'Retour au volume',
+        code: '02',
+        title: 'Trajet de surface',
         description:
-          "Le rover se relit enfin comme un objet complet remis dans son environnement lunaire.",
+          "Le véhicule prend le relais pour un déplacement court entre la base et la zone de pause.",
+        media: {
+          src: buildAssetPath('/videos/custom/astronaut-driving.mp4'),
+          poster: buildAssetPath('/images/archive/motion-exterior-front.jpg'),
+          label: 'Déplacement / surface',
+        },
+      },
+      {
+        code: '03',
+        title: 'Lecture du terrain',
+        description:
+          'La progression rend visible le sol, les appuis et le rythme du trajet.',
+        media: {
+          src: buildAssetPath('/videos/custom/satellite-drive.mp4'),
+          poster: buildAssetPath('/images/custom/wheel-concept.jpg'),
+          label: 'Terrain / déplacement',
+        },
+      },
+      {
+        code: '04',
+        title: 'Pause dans la zone arrière',
+        description:
+          "Le trajet ouvre un temps de pause et d'observation avant le retour vers la base.",
+        media: {
+          src: buildAssetPath('/videos/custom/rear-comfort-astronauts.mp4'),
+          poster: buildAssetPath('/images/custom/comfort-zone-astronauts.jpg'),
+          label: 'Pause / zone arrière',
+        },
+      },
+      {
+        code: '05',
+        title: "Retour vers l'habitat",
+        description:
+          'Le retour replace le véhicule dans le rythme quotidien de la base lunaire.',
+        media: {
+          src: buildAssetPath('/videos/deck/hangar-front.mp4'),
+          poster: buildAssetPath('/images/custom/village-lunaire.jpg'),
+          label: 'Retour / habitat',
+        },
       },
     ],
   },
   archiveFilms: {
-    title: 'Vues video du projet',
+    title: 'Faire lire le projet en mouvement',
     description:
-      "La selection video rassemble des vues du projet: rover en contexte, habitacle, modules, structure et recherches.",
+      "Ces vidéos montrent le projet en mouvement : volumes extérieurs, accès, habitacle et détails de construction.",
     featuredClip: {
-      title: 'Lecture du chassis',
+      title: "Du poste avant à la zone arrière",
       description:
-        "Cette sequence donne une lecture generale de la structure, des appuis et de l'enveloppe du projet.",
-      tag: 'Sequence principale',
-      src: assetPaths.videos.zip30,
-      poster: zipImage('30'),
+        "Cette séquence traverse l'habitacle pour faire lire le poste de conduite, la banquette et les volumes de repos.",
+      tag: 'Habitacle',
+      src: buildAssetPath('/videos/custom/dashboard-to-rear.mp4'),
+      poster: buildAssetPath('/images/custom/dashboard-driver.png'),
     },
     secondaryClips: [
       {
-        title: 'Module oxygene',
+        title: 'Rotation du véhicule',
         description:
-          "Le clip isole un sous-ensemble du projet pour en montrer la logique de composition.",
-        tag: 'Sous-ensemble',
-        src: assetPaths.videos.zip34,
-        poster: zipImage('34'),
+          'Rotation lente pour lire la masse, les surfaces et les proportions.',
+        tag: 'Véhicule',
+        src: buildAssetPath('/videos/custom/rotation-vehicule.mp4'),
+        poster: buildAssetPath('/images/custom/vehicle-styled-exit.png'),
       },
       {
-        title: 'Sortie de base',
+        title: 'Conduite du véhicule',
         description:
-          "Le vehicule se met en mouvement dans un tempo plus calme, avec une lecture plus nette du projet.",
-        tag: 'Mise en situation',
-        src: assetPaths.videos.missionHangarRear,
-        poster: buildAssetPath('/images/renders/transport-stowage.jpg'),
+          'Une vue en situation pour garder une lecture simple du déplacement.',
+        tag: 'Conduite',
+        src: buildAssetPath('/videos/custom/astronaut-driving.mp4'),
+        poster: buildAssetPath('/images/archive/motion-exterior-front.jpg'),
       },
     ],
     clips: [
       {
-        title: 'Coupe habitable',
-        description: "Cette coupe met en relation l'usage et l'architecture interieure.",
-        tag: 'Recherche',
-        src: assetPaths.videos.zip26,
-        poster: zipImage('26'),
+        title: 'Fermeture de porte',
+        description: "Lecture de l'entrée et du sas.",
+        tag: 'Accès',
+        src: buildAssetPath('/videos/custom/door-close.mp4'),
+        poster: buildAssetPath('/images/custom/door-research.jpg'),
       },
       {
-        title: 'Ensemble constructif',
+        title: 'Fermeture du sas',
+        description: "Une vue plus large de l'accès au véhicule.",
+        tag: 'Accès',
+        src: buildAssetPath('/videos/custom/door-close-wide.mp4'),
+        poster: buildAssetPath('/images/custom/door-research.jpg'),
+      },
+      {
+        title: 'Volant en approche',
+        description: 'Le poste de conduite se met en place pour le trajet.',
+        tag: 'Poste avant',
+        src: buildAssetPath('/videos/custom/steering-column-advance.mp4'),
+        poster: buildAssetPath('/images/custom/dashboard-driver.png'),
+      },
+      {
+        title: 'Déploiement du siège',
+        description: 'La posture de conduite se prépare dans le volume avant.',
+        tag: 'Posture',
+        src: buildAssetPath('/videos/custom/seat-rise.mp4'),
+        poster: buildAssetPath('/images/custom/top-view-interieur-vehicule.png'),
+      },
+      {
+        title: "Lecture complète de l'habitacle",
         description:
-          'Une lecture plus technique qui montre la construction du projet.',
-        tag: 'Recherche',
-        src: assetPaths.videos.zip28,
-        poster: zipImage('28'),
+          "Une vue continue pour lire la cabine dans son ensemble.",
+        tag: 'Habitacle',
+        src: buildAssetPath('/videos/custom/rear-cabin-full.mp4'),
+        poster: buildAssetPath('/images/custom/comfort-zone.png'),
       },
       {
-        title: 'Architecture laterale',
-        description: 'Lecture laterale et distribution interne du projet.',
-        tag: 'Recherche',
+        title: 'Zone arrière / pause',
+        description: 'La pause prend place dans le volume arrière.',
+        tag: 'Zone arrière',
+        src: buildAssetPath('/videos/custom/rear-comfort-astronauts.mp4'),
+        poster: buildAssetPath('/images/custom/comfort-zone-astronauts.jpg'),
+      },
+      {
+        title: 'Vue latérale du trajet',
+        description: 'Le trajet garde le paysage dans le champ.',
+        tag: 'Déplacement',
+        src: buildAssetPath('/videos/custom/side-window-drive.mp4'),
+        poster: buildAssetPath('/images/interior/panorama-cockpit.jpg'),
+      },
+      {
+        title: 'Vue satellite du trajet',
+        description: 'Le véhicule se lit par ses appuis et sa trace au sol.',
+        tag: 'Terrain',
+        src: buildAssetPath('/videos/custom/satellite-drive.mp4'),
+        poster: buildAssetPath('/images/custom/wheel-concept.jpg'),
+      },
+      {
+        title: "Retour à l'atelier",
+        description: "Le projet repasse par un temps de contrôle et de maintenance.",
+        tag: 'Atelier',
+        src: buildAssetPath('/videos/deck/repair-atelier.mp4'),
+        poster: buildAssetPath('/images/renders/workshop-assembly.jpg'),
+      },
+      {
+        title: 'Champ visuel',
+        description: "Une vue intérieure qui garde la surface lunaire dans le champ.",
+        tag: 'Habitacle',
+        src: assetPaths.videos.zip33,
+        poster: zipImage('33'),
+      },
+      {
+        title: 'Architecture latérale',
+        description: 'Lecture du véhicule par sa façade latérale et ses volumes.',
+        tag: 'Détail',
         src: assetPaths.videos.zip29,
         poster: zipImage('29'),
       },
       {
-        title: 'Sous-ensemble lumineux',
-        description:
-          "Autre lecture des sous-ensembles et de l'organisation des elements embarques.",
-        tag: 'Sous-ensemble',
-        src: assetPaths.videos.zip35,
-        poster: zipImage('35'),
+        title: 'Passage rapide',
+        description: 'Essai de mise en scène sur la surface lunaire.',
+        tag: 'Mise en scène',
+        src: buildAssetPath('/videos/custom/fast-drive.mp4'),
+        poster: buildAssetPath('/images/archive/archive-side-profile.jpg'),
       },
       {
-        title: 'Elements de service',
-        description:
-          'Lecture plus calme des objets techniques associes au rover.',
-        tag: 'Sous-ensemble',
-        src: assetPaths.videos.zip36,
-        poster: zipImage('36'),
+        title: 'Franchissement',
+        description: 'Le véhicule est observé dans une séquence plus libre.',
+        tag: 'Mise en scène',
+        src: buildAssetPath('/videos/custom/vehicle-stunt.mp4'),
+        poster: buildAssetPath('/images/renders/exterior-rear.jpg'),
       },
       {
-        title: 'Etude de face avant',
-        description:
-          'Variation autour de la face avant, de la masse et de la lecture generale des volumes.',
-        tag: 'Recherche',
-        src: assetPaths.videos.zip38,
-        poster: zipImage('38'),
-      },
-      {
-        title: 'Evolution de la forme',
-        description:
-          'Le rover se lit ici comme un ensemble complet en cours de mise au point.',
-        tag: 'Recherche',
-        src: assetPaths.videos.zip39,
-        poster: buildAssetPath('/images/archive/archive-dramatic-render.jpg'),
-      },
-      {
-        title: 'Rotation exterieure',
-        description:
-          "Le mouvement reste lent pour garder une lecture claire du vehicule dans son ensemble.",
-        tag: 'Mise en situation',
-        src: assetPaths.videos.missionTurnaroundReflect,
+        title: 'Approche sur la surface',
+        description: 'Le véhicule est repris dans une vue de progression plus frontale.',
+        tag: 'Déplacement',
+        src: buildAssetPath('/videos/deck/drive-front.mp4'),
         poster: buildAssetPath('/images/archive/motion-exterior-front.jpg'),
       },
     ],
   },
   memoire: {
-    title: 'Memoire et documents',
+    title: 'Mémoire et archives',
     description:
-      "Le site donne acces au memoire PDF, aux planches et aux visuels clefs du projet.",
+      "Le site rassemble le mémoire, les planches et une sélection de visuels du projet.",
     pdfUrl: assetPaths.pdf,
-    presentationUrl: assetPaths.presentation,
     presentationDeckUrl: '/presentation',
     presentationManifestUrl: assetPaths.presentationManifest,
     previewImage: buildAssetPath('/images/thumbnails/hero-thumb.jpg'),
   },
   finalStatement: {
-    title: 'Ecrire la lune pour mieux habiter la terre.',
-    ctaPrimary: 'Revoir le vehicule',
-    ctaSecondary: 'Lire le memoire',
+    title: "Concevoir pour la Lune, c'est aussi choisir ce que l'on veut préserver.",
+    ctaPrimary: 'Voir le véhicule',
+    ctaSecondary: 'Ouvrir le mémoire',
   },
   footer: {
-    credit: 'Buron Mateo - Diplomes 2026 - Strate Ecole de Design',
-    secondary: 'Site de reference pour consulter le memoire, les images et les videos du projet',
+    credit: 'Buron Matéo - Diplômes 2026 - Strate École de Design',
+    secondary: 'Mémoire, images, vidéos et maquette du projet',
   },
 } as const

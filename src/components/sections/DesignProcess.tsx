@@ -13,14 +13,14 @@ function DesignProcess() {
       <div className="section-inner space-y-10">
         <SectionTitle
           description={siteContent.process.description}
-          eyebrow="MODULE 07 / Process design"
+          eyebrow="MODULE 07 / Processus"
           title={siteContent.process.title}
         />
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {siteContent.process.steps.map((step, index) => (
             <HudCard
-              eyebrow={`Etape ${String(index + 1).padStart(2, '0')}`}
+              eyebrow={`Étape ${String(index + 1).padStart(2, '0')}`}
               key={step.title}
               title={step.title}
             >
@@ -41,10 +41,6 @@ function DesignProcess() {
             <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <p className="mono-copy text-lime-300/90">{featureVisual.label}</p>
-                <p className="mt-3 max-w-lg text-sm leading-7 text-lunar/78">
-                  Les recherches se lisent ici comme une progression continue: cadrage,
-                  usage, volume, organisation interieure et synthese.
-                </p>
               </div>
             </div>
 

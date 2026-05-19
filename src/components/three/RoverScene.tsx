@@ -53,7 +53,7 @@ function RoverScene({
   const containerRef = useRef<HTMLDivElement | null>(null)
   const effectiveFocusMode =
     cinematicActive && focusMode === 'isolate' ? 'accent' : focusMode
-  const useLiteScene = performanceMode || isMobile || mode === 'interior' || mode === 'chassis'
+  const useLiteScene = performanceMode || mode === 'interior' || mode === 'chassis'
   const useHighExteriorModel =
     !useLiteScene && (preferHighExterior || mode === 'cinematic' || mode === 'details')
   const useLowExteriorModel = !useHighExteriorModel && mode !== 'interior' && mode !== 'chassis'
@@ -74,32 +74,31 @@ function RoverScene({
     modelReady &&
     !useLowExteriorModel &&
     !performanceMode &&
-    !isMobile &&
     mode !== 'interior' &&
     mode !== 'chassis'
   const activeModelLabel = useMemo(() => {
     if (useHighExteriorModel) {
-      return 'GLB hero actif'
+      return 'Maquette principale active'
     }
 
     if (performanceMode && !isMobile && mode !== 'interior' && mode !== 'chassis') {
-      return 'GLB performance actif'
+      return 'Mode allégé actif'
     }
 
     if (useLowExteriorModel) {
-      return 'GLB optimise actif'
+      return 'Maquette optimisée active'
     }
 
     if (mode === 'interior') {
-      return 'GLB interieur actif'
+      return 'Maquette intérieure active'
     }
 
     if (mode === 'chassis') {
-      return 'GLB chassis actif'
+      return 'Maquette du châssis active'
     }
 
-    return 'GLB exterieur actif'
-  }, [isMobile, mode, performanceMode, useHighExteriorModel, useLowExteriorModel])
+    return 'Maquette extérieure active'
+  }, [mode, performanceMode, useHighExteriorModel, useLowExteriorModel])
 
   useEffect(() => {
     setWebglAvailable(supportsWebGL())
@@ -173,14 +172,14 @@ function RoverScene({
 
   if (!webglAvailable) {
       return (
-      <ModelFallback
-        description={
-          webglAvailable
-            ? 'Le mode media prend le relais sur les machines mobiles ou les appareils plus fragiles.'
-            : 'WebGL est indisponible sur cet appareil, le viewer bascule automatiquement vers une vue media.'
-        }
+        <ModelFallback
+          description={
+            webglAvailable
+              ? "La vidéo de secours prend le relais si la maquette ne peut pas être chargée proprement."
+              : "WebGL est indisponible sur cet appareil. La maquette 3D bascule vers une vidéo de secours."
+          }
         poster={assetPaths.hero.profile}
-        title={webglAvailable ? 'Fallback media actif' : 'Fallback media'}
+        title={webglAvailable ? 'Vidéo de secours active' : 'Maquette 3D indisponible'}
         videoUrl={assetPaths.videos.fallback}
       />
     )
@@ -194,9 +193,9 @@ function RoverScene({
     <ViewerErrorBoundary
       fallback={
         <ModelFallback
-          description="Le navigateur n'a pas pu charger le GLB proprement. Le viewer bascule vers une vue archive plus stable."
+          description="Le navigateur n'a pas pu charger la maquette proprement. Une vidéo de secours prend le relais."
           poster={assetPaths.hero.profile}
-          title="Fallback media"
+          title="Maquette 3D indisponible"
           videoUrl={assetPaths.videos.fallback}
         />
       }
@@ -210,7 +209,7 @@ function RoverScene({
       >
         <Canvas
           camera={{ far: 40, fov: 31, near: 0.05, position: [4.6, 1.4, 3.9] }}
-          dpr={isMobile ? [0.74, 0.9] : useHighExteriorModel ? [0.9, 1.05] : [0.8, 1]}
+          dpr={useHighExteriorModel ? [0.9, 1.05] : [0.8, 1]}
           frameloop={mode === 'cinematic' ? 'always' : 'demand'}
           gl={{
             alpha: false,
@@ -261,12 +260,12 @@ function RoverScene({
         </Canvas>
 
         <div className="pointer-events-none absolute left-4 top-4 rounded-sm border border-white/10 bg-black/45 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-          {modelReady ? activeModelLabel : 'Mode attente'}
+          {modelReady ? activeModelLabel : 'Chargement de la maquette'}
         </div>
 
         {showInteractionHint ? (
           <div className="pointer-events-none absolute bottom-4 right-4 rounded-sm border border-white/10 bg-black/38 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-            {allowInteraction ? 'Tourner / zoomer / choisir un point' : 'Sequence guidee'}
+            {allowInteraction ? 'Tourner / zoomer / choisir un point' : 'Séquence guidée'}
           </div>
         ) : null}
       </div>

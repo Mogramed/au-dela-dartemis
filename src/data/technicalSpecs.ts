@@ -6,27 +6,27 @@ export type TechnicalSpec = {
 
 export const technicalSpecs: TechnicalSpec[] = [
   {
-    title: 'Structure pressurisee',
+    title: 'Volume pressurisé',
     description:
-      "Une coque continue protege l'habitacle et maintient la lisibilite generale du volume.",
-    status: 'STRUCTURE',
+      "Une coque continue protège l'habitacle et garde une lecture simple du volume principal.",
+    status: 'PROTECTION',
   },
   {
-    title: 'Energie embarquee',
+    title: 'Énergie et maintenance',
     description:
-      "Le chassis accueille batteries, reserves et maintenance sans saturer la lecture interieure.",
-    status: 'ENERGIE',
+      "Le châssis accueille batteries, réserves et accès techniques sans saturer l'intérieur.",
+    status: 'ÉNERGIE',
   },
   {
-    title: 'Habitabilite',
+    title: 'Circulation intérieure',
     description:
-      "Les surfaces interieures travaillent la posture, l'observation et le relachement autant que le deplacement.",
-    status: 'INTERIEUR',
+      "Les surfaces intérieures sont pensées pour le passage, la posture et le changement d'appui.",
+    status: 'CIRCULATION',
   },
   {
-    title: 'Observation',
+    title: 'Vue et observation',
     description:
-      "La zone arriere remet le paysage au coeur de l'usage par des temps d'arret et d'observation.",
-    status: 'OBSERVATION',
+      "La zone arrière remet le paysage dans l'usage sans détacher le véhicule de sa fonction de trajet.",
+    status: 'VISIBILITÉ',
   },
 ]

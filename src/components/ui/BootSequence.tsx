@@ -8,10 +8,10 @@ type BootSequenceProps = {
 }
 
 const bootLines = [
-  'MISSION ARCHIVE LOADING...',
-  "AU-DELA D'ARTEMIS",
-  'LUNAR MOBILITY DESIGN PROGRAM',
-  'BURON MATEO - STRATE DESIGN',
+  'CHARGEMENT DE LA MAQUETTE...',
+  "AU-DELÀ D'ARTÉMIS",
+  'ARCHIVE DU PROJET',
+  'BURON MATÉO - STRATE DESIGN',
 ]
 
 const bootEase = cubicBezier(0.16, 1, 0.3, 1)
@@ -86,7 +86,7 @@ function BootSequence({ visible }: BootSequenceProps) {
 
         <div className="mt-8 space-y-2">
           <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-dust">
-            <span>Archive boot</span>
+            <span>Chargement</span>
             <span>{String(progress).padStart(3, '0')}%</span>
           </div>
           <div className="h-2 border border-white/10 bg-white/[0.02]">

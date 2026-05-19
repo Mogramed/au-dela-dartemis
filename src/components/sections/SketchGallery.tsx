@@ -4,6 +4,7 @@ import ScanLine from '@/components/ui/ScanLine'
 import SectionTitle from '@/components/ui/SectionTitle'
 import {
   galleryCategories,
+  galleryCategoryLabels,
   galleryItems,
   type GalleryCategory,
   type GalleryItem,
@@ -27,9 +28,9 @@ function SketchGallery() {
     <section className="shell-section section-anchor" id="gallery" ref={revealRef}>
       <div className="section-inner space-y-8">
         <SectionTitle
-          description="Les croquis et rendus ne sont pas seulement des etapes. Ils montrent la recherche d'une posture, d'un usage et d'un rapport au paysage lunaire."
+          description="Les croquis montrent les essais du projet : silhouette, accès, posture, habitacle et rapport au paysage lunaire."
           eyebrow="MODULE 08 / Galerie"
-          title="Croquis, rendus et details de projet"
+          title="Croquis, rendus et détails du projet"
         />
 
         <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
@@ -44,7 +45,7 @@ function SketchGallery() {
               onClick={() => setActiveCategory(category)}
               type="button"
             >
-              {category}
+              {galleryCategoryLabels[category]}
             </button>
           ))}
         </div>
@@ -66,7 +67,7 @@ function SketchGallery() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 space-y-2 p-4">
-                <p className="mono-copy">{item.category}</p>
+                <p className="mono-copy">{galleryCategoryLabels[item.category]}</p>
                 <h3 className="text-lg uppercase leading-tight">{item.title}</h3>
               </div>
             </button>

@@ -13,7 +13,7 @@ function TechnicalBreakdown() {
       <div className="section-inner space-y-8">
         <SectionTitle
           description={siteContent.technical.description}
-          eyebrow="MODULE 10 / Breakdown technique"
+          eyebrow="MODULE 10 / Contraintes techniques"
           title={siteContent.technical.title}
         />
 
@@ -22,7 +22,7 @@ function TechnicalBreakdown() {
             <div className="image-frame min-h-[460px]">
               <ScanLine />
               <img
-                alt="Lecture technique du rover lunaire"
+                alt="Lecture technique du véhicule lunaire"
                 className="h-full w-full object-cover"
                 loading="lazy"
                 src={siteContent.technical.image}

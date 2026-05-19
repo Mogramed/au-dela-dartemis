@@ -133,23 +133,6 @@ function MotionShowcase() {
           title={siteContent.motion.title}
         />
 
-        <div className="grid gap-3 md:grid-cols-3" data-reveal-item>
-          {siteContent.motion.stats.map((stat) => (
-            <div className="motion-stat" key={stat.label}>
-              <p className="metric-label">{stat.label}</p>
-              <p className="metric-value">{stat.value}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-2" data-reveal-item>
-          {siteContent.motion.tags.map((tag) => (
-            <span className="motion-pill" key={tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-
         {useCompactLayout ? (
           <div className="grid gap-5">
             {steps.map((step, index) => (
@@ -196,10 +179,10 @@ function MotionShowcase() {
             ))}
 
             <div className="hud-panel p-4 sm:p-5" data-reveal-item>
-              <p className="mono-copy text-lime-300/90">Suite du projet</p>
+              <p className="mono-copy text-lime-300/90">Vue suivante</p>
               <p className="mt-3 text-sm leading-7 text-lunar/78">
-                La lecture guidee pose les cinq points d&apos;entree du projet. Le viewer libre
-                permet ensuite d&apos;examiner le vehicule plus finement.
+                La maquette 3D permet ensuite d&apos;observer plus librement les volumes et les
+                zones d&apos;usage du véhicule.
               </p>
               <div className="mt-4">
                 <Button
@@ -207,7 +190,7 @@ function MotionShowcase() {
                   onClick={handleJumpToViewer}
                   variant="solid"
                 >
-                  Passer au viewer libre
+                  Explorer la 3D
                 </Button>
               </div>
             </div>
@@ -262,7 +245,7 @@ function MotionShowcase() {
               <div className="hud-panel flex h-full flex-col p-4 sm:p-5" data-reveal-item>
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="mono-copy text-lime-300/90">Sequence guidee</p>
+                    <p className="mono-copy text-lime-300/90">Lecture du projet</p>
                     <p className="mt-2 text-lg uppercase leading-tight text-lunar">
                       {activeStep.title}
                     </p>
@@ -279,7 +262,7 @@ function MotionShowcase() {
                       {activeStep.note}
                     </span>
                     <span className="rounded-sm border border-white/10 bg-black/38 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-                      Progress {progressPercent}
+                      Avancement {progressPercent}
                     </span>
                   </div>
 
@@ -311,7 +294,7 @@ function MotionShowcase() {
                         </p>
                       </div>
                       <div className="rounded-sm border border-white/10 bg-black/38 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dust">
-                        Vue choisie
+                        Vue en cours
                       </div>
                     </div>
                   </div>
@@ -353,7 +336,7 @@ function MotionShowcase() {
                       onClick={handleJumpToViewer}
                       variant="solid"
                     >
-                      Passer au viewer libre
+                      Explorer la 3D
                     </Button>
                   </div>
                 </div>

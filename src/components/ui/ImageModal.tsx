@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
-import type { GalleryItem } from '@/data/gallery'
+import { galleryCategoryLabels, type GalleryItem } from '@/data/gallery'
 
 type ImageModalProps = {
   item: GalleryItem | null
@@ -94,7 +94,7 @@ function ImageModal({ item, onClose }: ImageModalProps) {
               </div>
 
               <div className="flex flex-col gap-3 rounded-sm border border-white/10 bg-white/[0.03] p-4 md:justify-end">
-                <p className="mono-copy">{item.category}</p>
+                <p className="mono-copy">{galleryCategoryLabels[item.category]}</p>
                 <h3 className="text-2xl uppercase leading-tight">{item.title}</h3>
                 <p className="text-sm leading-7 text-lunar/80">{item.description}</p>
                 <button

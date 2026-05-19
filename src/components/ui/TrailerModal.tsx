@@ -1,0 +1,140 @@
+import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { X } from 'lucide-react'
+
+type TrailerModalProps = {
+  isOpen: boolean
+  onClose: () => void
+  title: string
+  trailerUrl: string
+  videoId: string
+}
+
+function TrailerModal({ isOpen, onClose, title, trailerUrl, videoId }: TrailerModalProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const previousTouchAction = document.body.style.touchAction
+    const previousPaddingRight = document.body.style.paddingRight
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+    document.body.style.overflow = 'hidden'
+    document.body.style.touchAction = 'none'
+    document.body.dataset.modalOpen = 'true'
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    }
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.body.style.touchAction = previousTouchAction
+      document.body.style.paddingRight = previousPaddingRight
+      delete document.body.dataset.modalOpen
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [isOpen, onClose])
+
+  const embedUrl = useMemo(
+    () =>
+      `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`,
+    [videoId],
+  )
+
+  if (!isOpen || !mounted) {
+    return null
+  }
+
+  return createPortal(
+    <div
+      aria-label={title}
+      aria-modal="true"
+      className="fixed inset-0 z-[130] overflow-y-auto bg-black/92 backdrop-blur-md"
+      data-lenis-prevent-wheel
+      onClick={onClose}
+      role="dialog"
+    >
+      <div className="min-h-full px-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-6 sm:py-6 md:px-8">
+        <div
+          className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl items-center"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="relative w-full rounded-sm border border-white/10 bg-space/96 shadow-[0_38px_120px_rgba(0,0,0,0.55)]">
+            <button
+              aria-label="Fermer la vidéo"
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-sm border border-white/10 bg-black/72 text-lunar transition-colors hover:bg-white/10"
+              onClick={onClose}
+              type="button"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            <div className="grid gap-4 p-3 sm:p-4 md:grid-cols-[minmax(0,1fr)_300px] md:p-5">
+              <div className="overflow-hidden rounded-sm border border-white/10 bg-black">
+                <div className="aspect-video w-full">
+                  <iframe
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="h-full w-full"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    src={embedUrl}
+                    title={title}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 rounded-sm border border-white/10 bg-white/[0.03] p-4 md:justify-end">
+                <p className="mono-copy">Film</p>
+                <h3 className="text-2xl uppercase leading-tight">{title}</h3>
+                <p className="text-sm leading-7 text-lunar/80">
+                  Le film reste intégré au site pour garder une lecture continue du projet.
+                </p>
+                <a
+                  className="mt-1 inline-flex min-h-11 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] px-4 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
+                  href={trailerUrl}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Ouvrir sur YouTube
+                </a>
+                <button
+                  className="mt-2 inline-flex min-h-11 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] px-4 font-mono text-[11px] uppercase tracking-[0.16em] text-lunar transition-colors hover:bg-white/[0.08]"
+                  onClick={onClose}
+                  type="button"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  )
+}
+
+export default TrailerModal

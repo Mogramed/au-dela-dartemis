@@ -7,32 +7,27 @@ export type TimelineItem = {
 export const timeline: TimelineItem[] = [
   {
     label: 'Phase 01',
-    title: 'Retour durable sur la Lune',
-    description:
-      "Le cadre n'est plus celui d'une visite ponctuelle mais celui d'une installation durable, de travail et de retour a la base.",
+    title: 'Observer le ciel',
+    description: "L'intérêt pour la Lune naît d'abord de l'observation des astres et des récits qui les accompagnent.",
   },
   {
     label: 'Phase 02',
-    title: 'La base comme quotidien',
-    description:
-      "L'enjeu glisse d'un exploit ponctuel vers une routine extreme: circulation, maintenance, repos et observation.",
+    title: 'Entrer dans la conquête spatiale',
+    description: "Le XXe siècle transforme cette curiosité en programme technique, scientifique et politique.",
   },
   {
     label: 'Phase 03',
-    title: 'Le paysage comme contrainte',
-    description:
-      "Faible gravite, isolement et horizon mineral redessinent le rapport au corps autant que les outils de mission.",
+    title: 'Apollo et le sol lunaire',
+    description: "Avec Apollo, la Lune devient un terrain réel, parcouru et documenté par des équipages humains.",
   },
   {
     label: 'Phase 04',
-    title: "L'automatisation ne suffit pas",
-    description:
-      "Les machines explorent, mesurent et securisent. Elles ne remplacent pas l'experience vecue d'un equipage.",
+    title: 'Stations et présence orbitale',
+    description: "Les stations prolongent le temps passé hors de la Terre et déplacent la question vers la vie quotidienne en milieu spatial.",
   },
   {
     label: 'Phase 05',
-    title: 'Le vehicule devient lieu',
-    description:
-      "La mobilite n'est plus seulement un trajet: elle devient un espace de transition entre effort, recuperation et observation.",
+    title: "Artémis et l'hypothèse d'une présence",
+    description: "Artémis ne parle plus seulement d'exploit. Il ouvre l'idée de bases, de trajets et d'usages plus réguliers sur la Lune.",
   },
 ]

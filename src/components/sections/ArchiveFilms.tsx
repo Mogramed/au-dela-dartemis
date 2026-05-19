@@ -10,7 +10,7 @@ function ArchiveFilms() {
   const revealRef = useAnimeReveal<HTMLElement>()
   const isMobile = useIsMobile()
   const { featuredClip, secondaryClips, clips, description, title } = siteContent.archiveFilms
-  const visibleClips = isMobile ? clips.slice(0, 4) : clips
+  const visibleClips = clips
 
   return (
     <section className="shell-section section-anchor" id="films" ref={revealRef}>
@@ -37,9 +37,6 @@ function ArchiveFilms() {
                 <h3 className="mt-3 max-w-2xl text-2xl uppercase leading-tight sm:text-3xl">
                   {featuredClip.title}
                 </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-lunar/78">
-                  {featuredClip.description}
-                </p>
               </div>
             </div>
 
@@ -55,7 +52,6 @@ function ArchiveFilms() {
                   <AutoVideo
                     className="h-full w-full object-cover"
                     poster={clip.poster}
-                    playWhenVisible={!isMobile}
                     rootMargin="100px 0px"
                     src={clip.src}
                   />
@@ -63,7 +59,6 @@ function ArchiveFilms() {
                   <div className="absolute inset-x-0 bottom-0 p-4">
                     <p className="mono-copy text-lime-300/90">{clip.tag}</p>
                     <h3 className="mt-2 text-lg uppercase leading-tight">{clip.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-lunar/78">{clip.description}</p>
                   </div>
                 </div>
               ))}
@@ -71,30 +66,29 @@ function ArchiveFilms() {
           </div>
 
           {isMobile ? (
-            <HudCard eyebrow="Selection video" title="Vues principales du projet">
+            <HudCard eyebrow="Sélection vidéo" title="Faire lire le projet en mouvement">
               <p className="text-sm leading-7 text-lunar/78">
-                La section rassemble une selection courte de vues video: structure, modules,
-                mise en mouvement et recherches.
+                Ces vidéos montrent le projet en mouvement : volumes extérieurs, accès, habitacle
+                et détails de construction.
               </p>
             </HudCard>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-              <HudCard eyebrow="Lecture video" title="Mouvements lents et cadrages lisibles">
+              <HudCard eyebrow="Lecture vidéo" title="Des cadrages volontairement lents">
                 <p className="text-sm leading-7 text-lunar/78">
-                  Les videos gardent des mouvements simples pour laisser lire le volume, les
-                  modules et les relations d&apos;usage.
+                  Les mouvements restent simples pour laisser comprendre les proportions, les
+                  appuis et les zones d&apos;usage.
                 </p>
               </HudCard>
-              <HudCard eyebrow="Selection" title={`${clips.length + secondaryClips.length + 1} vues retenues`}>
+              <HudCard eyebrow="Sélection vidéo" title="Vues principales du projet">
                 <p className="text-sm leading-7 text-lunar/78">
-                  La banque video rassemble des vues du rover, de l&apos;habitacle, des modules et
-                  des recherches.
+                  Cette sélection rassemble des vues du véhicule, de l&apos;habitacle, des détails
+                  et des essais de mise en scène.
                 </p>
               </HudCard>
-              <HudCard eyebrow="Usage" title="Lecture du volume et des sous-ensembles">
+              <HudCard eyebrow="Usage" title="Détails sans perdre l'ensemble">
                 <p className="text-sm leading-7 text-lunar/78">
-                  La section alterne vues d&apos;ensemble, sous-ensembles et recherches sans sortir
-                  du projet.
+                  Chaque vue isole une partie du véhicule sans la détacher de son usage général.
                 </p>
               </HudCard>
             </div>
@@ -115,44 +109,21 @@ function ArchiveFilms() {
               }`}
               key={clip.src}
             >
-              {isMobile ? (
-                <img
-                  alt={clip.title}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                  src={clip.poster}
-                />
-              ) : (
-                <>
-                  <ScanLine />
-                  <AutoVideo
-                    className="h-full w-full object-cover"
-                    poster={clip.poster}
-                    rootMargin="100px 0px"
-                    src={clip.src}
-                  />
-                </>
-              )}
+              <ScanLine />
+              <AutoVideo
+                className="h-full w-full object-cover"
+                poster={clip.poster}
+                rootMargin="100px 0px"
+                src={clip.src}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-space via-space/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="mono-copy text-lime-300/90">
-                  {isMobile ? `${clip.tag} / affiche` : clip.tag}
-                </p>
+                <p className="mono-copy text-lime-300/90">{clip.tag}</p>
                 <h3 className="mt-2 text-lg uppercase leading-tight">{clip.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-lunar/78">{clip.description}</p>
               </div>
             </div>
           ))}
         </div>
-
-        {isMobile && clips.length > visibleClips.length ? (
-          <HudCard eyebrow="Mobile" title="Selection mobile">
-            <p className="text-sm leading-7 text-lunar/78">
-              Sur telephone, la section garde les vues video principales et resserre la banque
-              d&apos;archive pour conserver une lecture plus fluide.
-            </p>
-          </HudCard>
-        ) : null}
       </div>
     </section>
   )
